@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="hidden"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Employee</h2>
+
+        <form th:action="@{/employee/edit/{id}(id=${employee.empId})}" th:object="${employee}" method="post">
+            <!-- Hidden Field for Employee ID -->
+            <input type="hidden" th:field="*{empId}" />
+
+            <div class="form-group">
+                <label for="phoneNo">Phone Number</label>
+                <input type="number" id="phoneNo" th:field="*{phoneNo}" class="form-control" placeholder="Enter Phone Number" required />
+            </div>
+>
+             <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" th:field="*{firstName}" class="form-control" placeholder="Enter First Name" required />
+            </div>
+
+      
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" id="middleName" th:field="*{middleName}" class="form-control" placeholder="Enter Middle Name" />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" th:field="*{lastName}" class="form-control" placeholder="Enter Last Name" required />
+            </div>
+           
+
+        
+        
+            <div class="form-group">
+                <label for="houseNo">House Number</label>
+                <input type="text" id="houseNo" th:field="*{houseNo}" class="form-control" placeholder="Enter House Number" />
+            </div>
+
+         
+            <div class="form-group">
+                <label for="street">Street</label>
+                <input type="text" id="street" th:field="*{street}" class="form-control" placeholder="Enter Street" required />
+            </div>
+
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" th:field="*{city}" class="form-control" placeholder="Enter City" required />
+            </div>
+
+         
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" th:field="*{state}" class="form-control" placeholder="Enter State" required />
+            </div>
+
+              <div class="form-group">
+                <label for="aadharNo">Aadhar Number</label>
+                <input type="number" id="aadharNo" th:field="*{aadharNo}" class="form-control" placeholder="Enter Aadhar Number" required />
+            </div>
+ 
+          
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="number" id="salary" th:field="*{salary}" class="form-control" placeholder="Enter Salary" required />
+            </div>
+
+           
+            <!-- <div class="form-group">
+                <label for="dept_id">Department ID</label>
+                <input type="text" id="dept_id" th:field="${dept_id_str}" class="form-control" placeholder="Enter Department ID" required />
+            </div> -->
+
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+                <button type="submit">Update Employee</button>
+            </div>
+
+            <!-- Cancel Link -->
+            <div class="form-group text-center">
+                <a th:href="@{/employee/{id}(id=${employee.empId})}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
