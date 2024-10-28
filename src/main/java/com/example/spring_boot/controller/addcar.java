@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class addcar {
     @GetMapping("/addcar/{id}")
-    public String addingcar(Model model,@PathVariable int id){
+    public String addingcar(Model model,@PathVariable Long id){
         Cars c=new Cars();
         System.out.println(id);
         c.setCustomerId(id);
@@ -35,7 +35,7 @@ public class addcar {
         return "addcar";
     }
     @PostMapping("/addcar/{id}")
-    public String gettingcar(@ModelAttribute("car") Cars c,@PathVariable int id, @RequestParam("proo") MultipartFile proof) throws Exception{
+    public String gettingcar(@ModelAttribute("car") Cars c,@PathVariable Long id, @RequestParam("proo") MultipartFile proof) throws Exception{
 
             System.out.println(proof+"^^^^^");
             // Check if the file is not empty and convert it to byte[] before setting it
@@ -46,7 +46,7 @@ public class addcar {
             }
             c.setCustomerId(id);
             // // Save car details including proof document
-            CarsDAO.addCarEntry(c);
+            CarsDAO.addNewCar(c);
             System.out.println(c.getCustomerId()+"^^^^^");
             return "redirect:/info/"+id; // Redirect to another page on success
     }
