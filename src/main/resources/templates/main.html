@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union Garage</title>
+    <link rel="stylesheet" href="css/styles2.css">
+    <link rel="stylesheet" href="css/responsive2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <audio controls autoplay hidden>
+        <source src="images/do-ya-thang.wav" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio>   
+    <div class="navbar">
+        <div class="logo"><img src="images/logo.jpg" alt="Company Logo"> Union Garage</div>
+        <div class="nav-links">
+            <a th:href="@{/home}">Home</a>
+            <a th:href="@{/about}">About</a>
+            <a th:href="@{/contact}">Contact</a>
+            <a th:href="@{/login}">Login</a>
+        </div>
+    </div>
+    
+    <div class="video-section">
+        <video autoplay muted loop>
+            <source src="images/union garage intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay">
+            <div class="intro-text">
+                <h1>Welcome to Union Garage</h1>
+                <p>When elegence meets performance</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="grid-item">
+            <img src="images/NFSMW_Audi_A3quattro_Stock.webp" alt="Audi A3">
+            <p>Audi A3</p>
+            <button>More Info</button>
+        </div>
+        <div class="grid-item">
+            <img src="images/NFSMW_Dodge_ViperSRT10_ChallengeSeries.webp" alt="Dodge Viper">
+            <p>Dodge Viper</p>
+            <button>More Info</button>
+        </div>
+        <div class="grid-item">
+            <img src="images/NFSPSAstonMartinDB9.webp" alt="Aston Martin">
+            <p>Aston Martin</p>
+            <button>More Info</button>
+        </div>
+        <div class="grid-item">
+            <img src="images/NFSPSChevroletCorvetteC6.webp" alt="Chevrolet Corvette">
+            <p>Chevrolet Corvette</p>
+            <button>More Info</button>
+        </div>
+        <div class="grid-item">
+            <img src="images/NFSMW_Lamborghini_Gallardo_Ming.webp" alt="Lamborghini Gallardo">
+            <p>Lamborghini Gallardo</p>
+            <button>More Info</button>
+        </div>
+        <div class="grid-item">
+            <img src="images/NFSMW_Toyota_Supra_Vic.webp" alt="Toyota Supra">
+            <p>Toyota Supra</p>
+            <button>More Info</button>
+        </div>
+    </div>
+
+    <div class="testimonials-section">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials-container">
+            <div class="testimonial-item">
+                <p>"Great service and friendly staff. Highly recommend!"</p>
+                <h3>- John Doe</h3>
+            </div>
+            <div class="testimonial-item">
+                <p>"My car looks brand new after their painting service."</p>
+                <h3>- Jane Smith</h3>
+            </div>
+            <div class="testimonial-item">
+                <p>"Quick and reliable repairs. Will come back again!"</p>
+                <h3>- Sam Wilson</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-section">
+        <div class="contact-left">
+            <img src="images/contact_us.webp" alt="Contact Us">
+        </div>
+        <div class="contact-right">
+            <h2>Contact Us</h2>
+                    <form class="contact-form">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
+                        
+                
+                        <div class ="subbtn"><button type="submit">Send Message</button></div>
+                    </form>
+                
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Union Garage. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

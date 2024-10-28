@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Car</title>
+    <link rel="stylesheet" href="/css/catalog.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Car Catalogue</h1>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Model ID</th>
+                    <th>Model Name</th>
+                    <th>Mileage</th>
+                    <th>Engine Type</th>
+                    <th>Price</th>
+                    <th>Manufacture Year</th>
+                    <th>Manufacturer ID</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="car : ${cata}">
+                    <td  th:text="${car.modelId }"></td>
+                    <td th:text="${car.modelName}"></td>
+                    <td th:text="${car.mileage} + ' km'"></td>
+                    <td th:text="${car.engineType}"></td>
+                    <td th:text="${car.price} + ' USD'"></td>
+                    <td th:text="${car.manufactureYear}"></td>
+                    <td th:text="${car.manufacturerId}"></td>
+                    <td>
+                        <a th:href="@{/buy/{id}(id=${car.modelId})}" class="btn btn-primary">Buy</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

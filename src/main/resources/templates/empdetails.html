@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Details</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="/css/employee.css">
+</head>
+<body>
+    <h2></h2>
+    <header>
+        <div class="logo">
+            <h1>Employee Details</h1> <!-- Logo Title -->
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/repair">Verify Insurance</a></li>
+                <li><a href="/buy">Add Car</a></li>
+                <li><a href="/insurance">Contact Manufacturer</a></li>
+                <li><a href="/insurance">Contact Buyer</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <table>
+        <tr>
+            <th>Employee ID:</th>
+            <td th:text="${employee.empId}"></td>
+        </tr>
+        <tr>
+            <th>First Name:</th>
+            <td th:text="${employee.firstName}"></td>
+        </tr>
+        <tr>
+            <th>Middle Name:</th>
+            <td th:text="${employee.middleName}"></td>
+        </tr>
+        <tr>
+            <th>Last Name:</th>
+            <td th:text="${employee.lastName}"></td>
+        </tr>
+        <tr>
+            <th>Salary:</th>
+            <td th:text="${employee.salary}"></td>
+        </tr>
+        <tr>
+            <th>Phone Number:</th>
+            <td th:text="${employee.phoneNo}"></td>
+        </tr>
+        <tr>
+            <th>Department:</th>
+            <td th:text="${employee.dept}"></td>
+        </tr>
+        <tr>
+            <th>Address:</th>
+            <td>
+                <span th:text="${employee.houseNo}"></span>,
+                <span th:text="${employee.street}"></span>,
+                <span th:text="${employee.city}"></span>,
+                <span th:text="${employee.state}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Aadhar Number:</th>
+            <td th:text="${employee.aadharNo}"></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/employee/edit/{id}(id=${employee.empId})}">Edit</a>
+</body>
+</html>
