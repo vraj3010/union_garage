@@ -117,7 +117,7 @@
 
                 <!-- Options for Insurance and Repair -->
                 <div class="options">
-                    <a th:href="@{/insurance}" class="option-btn">
+                    <a th:href="@{/insurance(carId=${car.cid})}" class="option-btn">
                         Apply for Insurance
                     </a>
                     <a th:href="@{/repair(carId=${car.cid})}" class="option-btn">
