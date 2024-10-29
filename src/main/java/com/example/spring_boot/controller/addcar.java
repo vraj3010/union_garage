@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import java.util.Objects;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,19 +27,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class addcar {
-    @GetMapping("/addcar/{id}")
-    public String addingcar(Model model,@PathVariable Long id){
+    @GetMapping("/addcar")
+    public String addingcar(Model model,HttpSession session){
+        Long id=(Long)session.getAttribute("id");
         Cars c=new Cars();
-        System.out.println(id);
         c.setCustomerId(id);
         System.out.println(c.getCustomerId()+"&&");
         model.addAttribute("car", c);
         return "addcar";
     }
-    @PostMapping("/addcar/{id}")
-    public String gettingcar(@ModelAttribute("car") Cars c,@PathVariable Long id, @RequestParam("proo") MultipartFile proof) throws Exception{
-
-            System.out.println(proof+"^^^^^");
+    @PostMapping("/addcar")
+    public String gettingcar(@ModelAttribute("car") Cars c,HttpSession session, @RequestParam("proo") MultipartFile proof) throws Exception{
+            Long id=(Long)session.getAttribute("id");
             // Check if the file is not empty and convert it to byte[] before setting it
             if (!proof.isEmpty()) {
                 c.setProof(proof.getBytes());
@@ -48,6 +49,6 @@ public class addcar {
             // // Save car details including proof document
             CarsDAO.addNewCar(c);
             System.out.println(c.getCustomerId()+"^^^^^");
-            return "redirect:/info/"+id; // Redirect to another page on success
+            return "redirect:/info"; // Redirect to another page on success
     }
 }

@@ -12,12 +12,10 @@
         </div>
         <nav class="navbar">
             <ul>
-                <li><a href="/repair">Repair</a></li>
                 <li><a href="/buy">Buy</a></li>
-                <li><a href="/insurance">Insurance</a></li>
+                <li><a th:href="@{/addcar}">Add Car</a></li>
+                <li><a th:href="@{/listcar}">Your Cars</a></li>
                 <li><a href="/logout">Logout</a></li>
-                <li><a th:href="@{/addcar/{id}(id=${userdetails.custId})}">Add Car</a></li>
-                <li><a th:href="@{/listcar/{id}(id=${userdetails.custId})}">List of Cars</a></li>
             </ul>
         </nav>
     </header>
@@ -37,8 +35,8 @@
         </div>
 
         <div class="actions">
-            <a th:href="@{/edit/info/{id}(id=${userdetails.custId})}" class="btn">Edit Details</a>
-            <a th:href="@{/delete/info/{id}(id=${userdetails.custId})}" class="btn">Delete your Account</a>
+            <a th:href="@{/edit/info}" class="btn">Edit Details</a>
+            <a th:href="@{/delete/info}" class="btn">Delete your Account</a>
         </div>
     </div>
 </body>

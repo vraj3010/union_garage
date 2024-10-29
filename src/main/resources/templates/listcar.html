@@ -91,38 +91,46 @@
 
     <div class="container">
         <div th:each="car : ${cars}" class="car-details">
-            <!-- Hidden inputs to store Car ID and Customer ID -->
-            <input type="hidden" th:value="${car.cid}" class="hidden-id" th:id="'carId_' + ${car.cid}"/>
-            <input type="hidden" th:value="${car.customerId}" class="hidden-id" th:id="'customerId_' + ${car.cid}"/>
+            <!-- Form to select the car -->
+            <form th:action="@{/car/select}" method="post">
+                <!-- Hidden input to store Car ID -->
+                <input type="hidden" th:value="${car.cid}" name="carId" />
+                
+                <p><strong>VIN:</strong> <span th:text="${car.vin}"></span></p>
+                <p><strong>Car Name:</strong> <span th:text="${car.carName}"></span></p>
+                <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
+                <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+                <p><strong>Color:</strong> <span th:text="${car.color}"></span></p>
+                <p><strong>Mileage:</strong> <span th:text="${car.mileage}"></span> km</p>
 
-            <p><strong>VIN:</strong> <span th:text="${car.vin}"></span></p>
-            <p><strong>Car Name:</strong> <span th:text="${car.carName}"></span></p>
-            <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
-            <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
-            <p><strong>Color:</strong> <span th:text="${car.color}"></span></p>
-            <p><strong>Mileage:</strong> <span th:text="${car.mileage}"></span> km</p>
+                <!-- Display proof document if available -->
+                <div th:if="${car.proof != null}" class="proof">
+                    <h2>Proof Document Available</h2>
+                    <!-- Button to download the proof document -->
+                    <a th:href="@{/car/download-proof/{cid}(cid=${car.cid})}" class="btn btn-custom">
+                        <i class="fas fa-download"></i> Download Proof
+                    </a>
+                </div>
+                <div th:if="${car.proof == null}" class="no-proof">
+                    <p>No proof document available for this car.</p>
+                </div>
 
-            <!-- Display proof document if available -->
-            <div th:if="${car.proof != null}" class="proof">
-                <h2>Proof Document Available</h2>
-                <!-- Button to download the proof document -->
-                <a th:href="@{/car/download-proof/{cid}(cid=${car.cid})}" class="btn btn-custom">
-                    <i class="fas fa-download"></i> Download Proof
-                </a>
-            </div>
-            <div th:if="${car.proof == null}" class="no-proof">
-                <p>No proof document available for this car.</p>
-            </div>
+                <!-- Options for Insurance and Repair -->
+                <div class="options">
+                    <a th:href="@{/insurance}" class="option-btn">
+                        Apply for Insurance
+                    </a>
+                    <a th:href="@{/repair(carId=${car.cid})}" class="option-btn">
+                        Repair this Car
+                    </a>
+                    <a th:href="@{/car/delete(carId=${car.cid})}" class="option-btn">
+                        Delete this Car
+                    </a>
+                </div>
 
-            <!-- Options for Insurance and Repair -->
-            <div class="options">
-                <a th:href="@{/insurance/{custId}(custId=${car.customerId})}" class="option-btn">
-                    Apply for Insurance
-                </a>
-                <a th:href="@{/repair/{custId}(custId=${car.customerId})}" class="option-btn">
-                    Repair this Car
-                </a>
-            </div>
+                <!-- Button to select this car -->
+                <!-- <button type="hidden" class="btn btn-custom"></button> -->
+            </form>
         </div>
     </div>
 

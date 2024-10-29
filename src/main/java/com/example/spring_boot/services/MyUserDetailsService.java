@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
+import jakarta.servlet.http.HttpSession;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 

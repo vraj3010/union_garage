@@ -60,7 +60,7 @@
     <div class="container">
         <h2>Edit Employee</h2>
 
-        <form th:action="@{/employee/edit/{id}(id=${employee.empId})}" th:object="${employee}" method="post">
+        <form th:action="@{/employee/edit}" th:object="${employee}" method="post">
             <!-- Hidden Field for Employee ID -->
             <input type="hidden" th:field="*{empId}" />
 

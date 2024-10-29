@@ -95,7 +95,7 @@
 <div class="form-container">
     <h1>Add Car</h1>
 
-    <form th:action="@{/addcar/{id}(id=${car.customerId})}" th:object="${car}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/addcar}" th:object="${car}" method="post" enctype="multipart/form-data">
         <!-- Car ID (cid) - Hidden -->
         <input type="hidden" th:field="*{cid}" />
 
