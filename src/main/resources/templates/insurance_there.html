@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Insurance Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 60%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #e9f7ef;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #4CAF50;
+        }
+
+        .section p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .section .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Insurance and Plan Details</h1>
+        
+        <!-- Insurance Plan Details Section -->
+        <div class="section">
+            <h2>Current Insurance Plan</h2>
+            <p><span class="label">Plan ID:</span> <span th:text="${plan.planId}"></span></p>
+            <p><span class="label">Plan Name:</span> <span th:text="${plan.planName}"></span></p>
+            <p><span class="label">Coverage Amount:</span> <span th:text="${plan.coverageAmt}"></span></p>
+            <p><span class="label">Deductible:</span> <span th:text="${plan.deductible}"></span></p>
+            <p><span class="label">Premium Amount:</span> <span th:text="${plan.premiumAmt}"></span></p>
+            <p><span class="label">Frequency:</span> <span th:text="${plan.frequency}"></span></p>
+        </div>
+        
+        <!-- Insurance Policy Details Section -->
+        <div class="section">
+            <h2>Insurance Policy Details</h2>
+            <p><span class="label">Policy Number:</span> <span th:text="${insure.policyNo}"></span></p>
+            <p><span class="label">Start Date:</span> <span th:text="${#dates.format(insure.startDate, 'yyyy-MM-dd')}"></span></p>
+            <p><span class="label">End Date:</span> <span th:text="${#dates.format(insure.endDate, 'yyyy-MM-dd')}"></span></p>
+            <p><span class="label">Employee ID:</span> <span th:text="${insure.employeeId}"></span></p>
+            <p><span class="label">Transaction ID:</span> <span th:text="${insure.transactionId}"></span></p>
+            <p><span class="label">Car ID:</span> <span th:text="${insure.carId}"></span></p>
+            <p><span class="label">Plan ID:</span> <span th:text="${insure.planId}"></span></p>
+        </div>
+        
+        <a href="/" class="back-link">Return to Home</a>
+    </div>
+</body>
+</html>

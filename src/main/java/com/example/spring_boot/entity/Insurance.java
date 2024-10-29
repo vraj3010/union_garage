@@ -2,15 +2,13 @@ package com.example.spring_boot.entity;
 import java.util.Date;
 
 public class Insurance {
-    private int policyNo;
-    private Date startDate;
-    private Date endDate;
-    private int premiumAmt;
-    private int coverageAmt;
-    private String policyStatus;
-    private int deductible;
-    private int employeeId;
-    private int transactionId;
+    private int policyNo;            // Primary key, policy number
+    private Date startDate;           // Start date of the insurance policy
+    private Date endDate;             // End date of the insurance policy
+    private int employeeId;           // ID of the employee associated with the policy
+    private long transactionId;       // ID of the transaction associated with the policy
+    private long carId;               // ID of the car associated with the policy
+    private int planId;               // ID of the insurance plan associated with the policy
 
     // Getters and Setters
     public int getPolicyNo() {
@@ -37,38 +35,6 @@ public class Insurance {
         this.endDate = endDate;
     }
 
-    public int getPremiumAmt() {
-        return premiumAmt;
-    }
-
-    public void setPremiumAmt(int premiumAmt) {
-        this.premiumAmt = premiumAmt;
-    }
-
-    public int getCoverageAmt() {
-        return coverageAmt;
-    }
-
-    public void setCoverageAmt(int coverageAmt) {
-        this.coverageAmt = coverageAmt;
-    }
-
-    public String getPolicyStatus() {
-        return policyStatus;
-    }
-
-    public void setPolicyStatus(String policyStatus) {
-        this.policyStatus = policyStatus;
-    }
-
-    public int getDeductible() {
-        return deductible;
-    }
-
-    public void setDeductible(int deductible) {
-        this.deductible = deductible;
-    }
-
     public int getEmployeeId() {
         return employeeId;
     }
@@ -77,11 +43,34 @@ public class Insurance {
         this.employeeId = employeeId;
     }
 
-    public int getTransactionId() {
+    public long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(long transactionId) {
         this.transactionId = transactionId;
+    }
+
+    public long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(long carId) {
+        this.carId = carId;
+    }
+
+    public int getPlanId() {
+        return planId;
+    }
+
+    public void setPlanId(int planId) {
+        this.planId = planId;
+    }
+
+    @Override
+    public String toString() {
+        return "Insurance [policyNo=" + policyNo + ", startDate=" + startDate + ", endDate=" + endDate +
+                ", employeeId=" + employeeId + ", transactionId=" + transactionId +
+                ", carId=" + carId + ", planId=" + planId + "]";
     }
 }
