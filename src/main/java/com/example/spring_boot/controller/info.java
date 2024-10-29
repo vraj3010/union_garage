@@ -10,36 +10,44 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.spring_boot.entity.Employee;
 import com.example.spring_boot.entity.UserDetails;
 import com.example.spring_boot.repository.EmployeeRepo;
+import com.example.spring_boot.repository.UserDAO;
 // import com.example.spring_boot.services.UserDetailService;
 import com.example.spring_boot.repository.UserDetailRepository;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 @Controller
 public class info {
 
     
-    @GetMapping("/info/{id}")
-    public String infopage(Model model,@PathVariable Long id){
-        // System.out.println(id+"******");
+    @GetMapping("/info")
+    public String infopage(Model model,HttpSession session){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username=auth.getName();
+        Long id=UserDAO.getUserIdByUsername(username);
+        session.setAttribute("id", id);
         UserDetails m1=UserDetailRepository.getCustomerById(id);
         model.addAttribute("userdetails",m1);
         return "info";
     }
-    @GetMapping("/edit/info/{id}")
-    public String editinfo(Model model,@PathVariable Long id){
+    @GetMapping("/edit/info")
+    public String editinfo(Model model,HttpSession session){
+        Long id=(Long)session.getAttribute("id");
         UserDetails m1=UserDetailRepository.getCustomerById(id);
         model.addAttribute("userDetails",m1);
         return "edit_customer";
     }
-    @PostMapping("/edit/info/{id}")
-    public String edit(@ModelAttribute("userdetails") UserDetails m1,@PathVariable Long id) throws Exception{
+    @PostMapping("/edit/info")
+    public String edit(@ModelAttribute("userdetails") UserDetails m1,HttpSession session) throws Exception{
 
+        Long id=(Long)session.getAttribute("id");
           for (Field field : UserDetails.class.getDeclaredFields()) {
             field.setAccessible(true); // Allows access to private fields
             
@@ -60,10 +68,11 @@ public class info {
             UserDetailRepository.upd_cust_detail(id, fieldName, fieldValue.toString());
          
         }
-        return "redirect:/info/"+id;
+        return "redirect:/info";
     }
-    @GetMapping("/delete/info/{id}")
-    public String deleteCustomer(@PathVariable Long id) {
+    @GetMapping("/delete/info")
+    public String deleteCustomer(HttpSession session) {
+        Long id=(Long)session.getAttribute("id");
         UserDetailRepository.deleteCustomerById(id); // Assuming deleteById method exists in UserDetailRepository
         return "redirect:/home"; // Redirect to a list of customers after deletion
     }

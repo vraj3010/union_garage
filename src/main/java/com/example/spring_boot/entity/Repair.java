@@ -2,30 +2,30 @@ package com.example.spring_boot.entity;
 import java.util.Date;
 
 public class Repair {
-    private int repairId;
-    private int carId;
+    private Long repairId;
+    private Long carId;
     private String repairDesc;
     private String repairStatus;
     private Date repairDate;
     private int cost;
-    private int employeeId;
-    private int customerId;
-    private int transactionId;
+    private Long employeeId;
+    private Long customerId;
+    private Long transactionId;
 
     // Getters and Setters
-    public int getRepairId() {
+    public Long getRepairId() {
         return repairId;
     }
 
-    public void setRepairId(int repairId) {
+    public void setRepairId(Long repairId) {
         this.repairId = repairId;
     }
 
-    public int getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(int carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 
@@ -61,27 +61,27 @@ public class Repair {
         this.cost = cost;
     }
 
-    public int getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
 
-    public int getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public int getTransactionId() {
+    public Long getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
 }

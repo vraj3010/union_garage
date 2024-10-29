@@ -12,10 +12,13 @@ import com.example.spring_boot.entity.UserDetails;
 import com.example.spring_boot.repository.EmployeeRepo;
 import com.example.spring_boot.repository.UserDetailRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class employee {
-     @GetMapping("/employee/{id}")
-    public String infopage(Model model,@PathVariable Long id){
+     @GetMapping("/employee")
+    public String infopage(Model model,HttpSession session){
+        Long id=(Long)session.getAttribute("id");
         System.out.println(id+"******");
         Employee m1=EmployeeRepo.getCustomerById(id);
         m1.setEmpId(id);
@@ -23,8 +26,9 @@ public class employee {
         return "empdetails";
     }
     
-    @GetMapping("/employee/edit/{id}")
-    public String showEditForm(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/employee/edit")
+    public String showEditForm(HttpSession session, Model model) {
+        Long id=(Long)session.getAttribute("id");
         Employee employee = EmployeeRepo.getCustomerById(id);
         String dept_id_str="";
         if (employee != null) {
@@ -36,10 +40,10 @@ public class employee {
         }
     }
 
-    @PostMapping("/employee/edit/{id}")
-    public String updateEmployee(@PathVariable("id") Long id, @ModelAttribute("employee") Employee employee) throws Exception{
+    @PostMapping("/employee/edit")
+    public String updateEmployee(HttpSession session, @ModelAttribute("employee") Employee employee) throws Exception{
+        Long id=(Long)session.getAttribute("id");
         employee.setEmpId(id);  // Ensure the ID is set to update the correct employee
-        
         for (Field field : Employee.class.getDeclaredFields()) {
             field.setAccessible(true); // Allows access to private fields
             
@@ -65,6 +69,6 @@ public class employee {
             EmployeeRepo.upd_emp_detail(id, fieldName, fieldValue.toString());
          
         }
-        return "redirect:/employee/"+id;
+        return "redirect:/employee";
     }
 }

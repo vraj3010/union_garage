@@ -43,7 +43,7 @@ public class CustomUserService implements AuthenticationSuccessHandler {
         for (GrantedAuthority authority : authorities) {
             System.out.println(authority.getAuthority()+"****");
             if (authority.getAuthority().equals("USER")) {
-                redirectUrl = "/info/"+userId;
+                redirectUrl = "/info";
                 break;
             } else if (authority.getAuthority().equals("EMPLOYEE")) {
                 redirectUrl = "/employee/"+userId;

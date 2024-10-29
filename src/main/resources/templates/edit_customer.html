@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-4">User Details Form</h2>
-        <form th:action="@{/edit/info/{id}(id=${userDetails.custId})}" th:object="${userDetails}" method="post" class="row g-3">
+        <form th:action="@{/edit/info}" th:object="${userDetails}" method="post" class="row g-3">
             <!-- <div class="col-md-6">
                 <label for="custId" class="form-label">Customer ID</label>
                 <input type="number" id="custId" th:field="*{custId}" class="form-control" placeholder="Enter Customer ID" required>

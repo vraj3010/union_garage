@@ -131,10 +131,10 @@ public class UserDetailRepository {
     }
 
     public static void deleteCustomerById(Long custId) {
-        String sql = "DELETE FROM customers WHERE cust_id = ?";
+        String sql = "DELETE FROM users WHERE id = ?";
 
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setLong(1, custId);
             int rowsAffected = pstmt.executeUpdate();
@@ -148,5 +148,6 @@ public class UserDetailRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 }
