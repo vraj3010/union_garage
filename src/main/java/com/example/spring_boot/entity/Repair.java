@@ -9,7 +9,6 @@ public class Repair {
     private Date repairDate;
     private int cost;
     private Long employeeId;
-    private Long customerId;
     private Long transactionId;
 
     // Getters and Setters
@@ -67,14 +66,6 @@ public class Repair {
 
     public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
     }
 
     public Long getTransactionId() {

@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Due Insurance Payments</title>
+    <title>Due Payments</title>
     <style>
-        /* Styling for table, button, and alert */
+        /* General styling for body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table styling */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         table, th, td {
@@ -42,6 +57,24 @@
             margin-top: 20px;
             border-radius: 4px;
             text-align: center;
+        }
+
+        /* Go Back Button Styles */
+        .go-back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .go-back:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -87,6 +120,45 @@
         </tr>
     </tbody>
 </table>
+
+<h2>Repair Due Status</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Repair ID</th>
+            <th>Car ID</th>
+            <th>Status</th>
+            <th>Car Repaired Date</th>
+            <th>Cost</th>
+            <th>Employee ID</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="repair : ${r}">
+            <td th:text="${repair.repairId}"></td>
+            <td>
+                <a th:href="@{/car_det(id=${repair.carId})}" th:text="${repair.carId}"></a>
+            </td>
+            
+            <td th:text="${repair.repairStatus}"></td>
+            <td th:text="${#dates.format(repair.repairDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${repair.cost}"></td>
+            <td>
+                <a th:href="@{/emp_det(id=${repair.employeeId})}" th:text="${repair.employeeId}"></a>
+            </td>
+            <td>
+                <form th:action="@{/payrepair(repairId=${repair.repairId},id=${repair.employeeId})}" method="post">
+                   
+                    <button type="submit" class="pay-now-btn">Pay Now</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a href="/info" class="go-back">Go Back</a> <!-- Go Back Button -->
 
 </body>
 </html>
