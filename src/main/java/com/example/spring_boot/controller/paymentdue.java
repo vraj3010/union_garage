@@ -18,7 +18,11 @@ import com.example.spring_boot.repository.RequestInsuranceDAO;
 public class paymentdue {
     @GetMapping("/paymentdue")
     public String getMethodName(Model model,HttpSession s) {
-        List<Insurance> i=RequestInsuranceDAO.getDueInsuranceByCustomerId((Long)s.getAttribute("id"));
+        Long id=(Long)s.getAttribute("id");
+        List<Insurance> i=RequestInsuranceDAO.getDueInsuranceByCustomerId(id);
+        List<Repair> r=PaymentDAO.getRepairsWithPaymentDueByCustomerId(id);
+        System.out.println(r.size()+"!@#$");
+        model.addAttribute("r", r);
         model.addAttribute("i", i);
         return "paymentdue";
     }
@@ -41,9 +45,16 @@ public class paymentdue {
         return "plandetails";
     }
     @PostMapping("/payinsurance")
-    public String payinsurance(Model model,@RequestParam("policyNo") int policyNo,@RequestParam("id") Long id,RedirectAttributes redirectAttributes){
+    public String payinsurance(Model model,@RequestParam("policyNo") int policyNo,@RequestParam("id") Long id,RedirectAttributes redirectAttributes,HttpSession s){
         // System.out.println(id+"^^^");
-        PaymentDAO.payInsurance(policyNo,id);
+        PaymentDAO.payInsurance(policyNo,id,(Long)s.getAttribute("id"));
+        redirectAttributes.addFlashAttribute("msg", "Payment Successful");
+        return "redirect:/paymentdue";
+    }
+    @PostMapping("/payrepair")
+    public String payrepair(Model model,@RequestParam("repairId") Long repairId,@RequestParam("id") Long id,RedirectAttributes redirectAttributes,HttpSession s){
+        // System.out.println(id+"^^^");
+        PaymentDAO.processRepairPayment(repairId,(Long)s.getAttribute("id"),id);
         redirectAttributes.addFlashAttribute("msg", "Payment Successful");
         return "redirect:/paymentdue";
     }

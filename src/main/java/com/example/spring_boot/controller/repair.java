@@ -30,14 +30,12 @@ public class repair {
         }
         m1.setCarId(carId);
         Long id=(Long)s.getAttribute("id");
-        m1.setCustomerId(id);
         model.addAttribute("car",m1);
         return "repair_det";
     }
     @PostMapping("/repair")
     public String postMethodName(@ModelAttribute("car") Repair m1,HttpSession s) {
         //TODO: process POST request
-        m1.setCustomerId((Long)s.getAttribute("id"));
         RepairDAO.addRepairEntry(m1);
         return "redirect:/listcar";
     }
