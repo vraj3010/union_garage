@@ -83,14 +83,13 @@
             <h2>Insurance Policy Details</h2>
             <p><span class="label">Policy Number:</span> <span th:text="${insure.policyNo}"></span></p>
             <p><span class="label">Start Date:</span> <span th:text="${#dates.format(insure.startDate, 'yyyy-MM-dd')}"></span></p>
-            <p><span class="label">End Date:</span> <span th:text="${#dates.format(insure.endDate, 'yyyy-MM-dd')}"></span></p>
+            <p><span class="label">Next Installment:</span> <span th:text="${#dates.format(insure.dueDate, 'yyyy-MM-dd')}"></span></p>
             <p><span class="label">Employee ID:</span> <span th:text="${insure.employeeId}"></span></p>
-            <p><span class="label">Transaction ID:</span> <span th:text="${insure.transactionId}"></span></p>
             <p><span class="label">Car ID:</span> <span th:text="${insure.carId}"></span></p>
             <p><span class="label">Plan ID:</span> <span th:text="${insure.planId}"></span></p>
         </div>
         
-        <a href="/" class="back-link">Return to Home</a>
+        <a href="/listcar" class="back-link">Go Back</a>
     </div>
 </body>
 </html>

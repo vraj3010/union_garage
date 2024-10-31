@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Plan Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .plan-container {
+            margin-top: 50px;
+            max-width: 600px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .plan-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .plan-detail {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #6c757d;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="plan-container">
+            <div class="plan-title" th:text="${i.planName}">Plan Name</div>
+
+            <div class="plan-detail">
+                <span class="label">Plan ID:</span> 
+                <span th:text="${i.planId}">123</span>
+            </div>
+
+            <div class="plan-detail">
+                <span class="label">Coverage Amount:</span> 
+                <span th:text="${i.coverageAmt}">100000</span>
+            </div>
+
+            <div class="plan-detail">
+                <span class="label">Deductible:</span> 
+                <span th:text="${i.deductible}">5000</span>
+            </div>
+
+            <div class="plan-detail">
+                <span class="label">Premium Amount:</span> 
+                <span th:text="${i.premiumAmt}">12000</span>
+            </div>
+
+            <div class="plan-detail">
+                <span class="label">Frequency:</span> 
+                <span th:text="${i.frequency}">Monthly</span>
+            </div>
+
+            <!-- Go Back link -->
+            <a href="#" onclick="history.back()" class="back-link">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

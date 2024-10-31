@@ -46,7 +46,7 @@ public class CustomUserService implements AuthenticationSuccessHandler {
                 redirectUrl = "/info";
                 break;
             } else if (authority.getAuthority().equals("EMPLOYEE")) {
-                redirectUrl = "/employee/"+userId;
+                redirectUrl = "/employee";
                 break;
             }
             else if (authority.getAuthority().equals("ADMIN")) {
@@ -54,7 +54,7 @@ public class CustomUserService implements AuthenticationSuccessHandler {
                 break;
             }
             else if (authority.getAuthority().equals("RENTER")) {
-                redirectUrl = "/renter/"+userId;
+                redirectUrl = "/renter";
                 break;
             }
         }

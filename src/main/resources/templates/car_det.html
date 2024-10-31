@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Car Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .car-details {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .proof {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f3fe;
+            border: 1px solid #bcdff1;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .proof h2 {
+            margin: 0;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-custom i {
+            margin-right: 5px;
+        }
+
+        .no-proof {
+            text-align: center;
+            color: #dc3545;
+        }
+
+        /* New options section */
+        .options {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .option-btn {
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .option-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Car Details</h1>
+
+    <div class="container">
+          <!-- Form to select the car -->
+            <form th:action="@{/car/select}" method="post">
+                <!-- Hidden input to store Car ID -->
+                <input type="hidden" th:value="${car.cid}" name="carId" />
+                
+                <p><strong>VIN:</strong> <span th:text="${car.vin}"></span></p>
+                <p><strong>Car Name:</strong> <span th:text="${car.carName}"></span></p>
+                <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
+                <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+                <p><strong>Color:</strong> <span th:text="${car.color}"></span></p>
+                <p><strong>Mileage:</strong> <span th:text="${car.mileage}"></span> km</p>
+
+                <!-- Display proof document if available -->
+                <div th:if="${car.proof != null}" class="proof">
+                    <h2>Proof Document Available</h2>
+                    <!-- Button to download the proof document -->
+                    <a th:href="@{/car/download-proof/{cid}(cid=${car.cid})}" class="btn btn-custom">
+                        <i class="fas fa-download"></i> Download Proof
+                    </a>
+                </div>
+                <div th:if="${car.proof == null}" class="no-proof">
+                    <p>No proof document available for this car.</p>
+                </div>
+            </form>
+        </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
