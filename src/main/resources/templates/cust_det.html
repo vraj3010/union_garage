@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .customer-container {
+            margin-top: 50px;
+            max-width: 600px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .customer-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .customer-detail {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #6c757d;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="customer-container">
+            <div class="customer-title">Customer Details</div>
+
+            <div class="customer-detail">
+                <span class="label">Customer ID:</span> 
+                <span th:text="${u.custId}">12345</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">Phone Number:</span> 
+                <span th:text="${u.phoneNo}">9876543210</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">First Name:</span> 
+                <span th:text="${u.firstName}">John</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">Middle Name:</span> 
+                <span th:text="${u.middleName}">A.</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">Last Name:</span> 
+                <span th:text="${u.lastName}">Doe</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">House No:</span> 
+                <span th:text="${u.houseNo}">22B</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">Street:</span> 
+                <span th:text="${u.street}">Green Street</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">City:</span> 
+                <span th:text="${u.city}">Springfield</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">State:</span> 
+                <span th:text="${u.state}">Illinois</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">Aadhar Number:</span> 
+                <span th:text="${u.aadharNo}">123456789012</span>
+            </div>
+
+            <div class="customer-detail">
+                <span class="label">License:</span> 
+                <span th:text="${u.license}">DL-1234-5678</span>
+            </div>
+
+            <!-- Go Back link -->
+            <a href="#" onclick="history.back()" class="back-link">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

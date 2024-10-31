@@ -91,4 +91,33 @@ public class CarsDAO {
 
         return proofDocument;
     }
+
+    public static Cars getCarById(long carId) {
+        String sql = "SELECT cid, vin, proof, customer_id, car_name, model, year, color, mileage FROM cars WHERE cid = ?";
+        Cars car = null;
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setLong(1, carId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                car = new Cars();
+                car.setCid(rs.getLong("cid"));
+                car.setVin(rs.getString("vin"));
+                car.setProof(rs.getBytes("proof"));
+                car.setCustomerId(rs.getLong("customer_id"));
+                car.setCarName(rs.getString("car_name"));
+                car.setModel(rs.getString("model"));
+                car.setYear(rs.getInt("year"));
+                car.setColor(rs.getString("color"));
+                car.setMileage(rs.getInt("mileage"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return car;}
 }

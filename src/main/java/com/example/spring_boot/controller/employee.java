@@ -1,5 +1,7 @@
 package com.example.spring_boot.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import java.lang.reflect.Field;
 import com.example.spring_boot.entity.Employee;
 import com.example.spring_boot.entity.UserDetails;
 import com.example.spring_boot.repository.EmployeeRepo;
+import com.example.spring_boot.repository.UserDAO;
 import com.example.spring_boot.repository.UserDetailRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +21,10 @@ import jakarta.servlet.http.HttpSession;
 public class employee {
      @GetMapping("/employee")
     public String infopage(Model model,HttpSession session){
-        Long id=(Long)session.getAttribute("id");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username=auth.getName();
+        Long id=UserDAO.getUserIdByUsername(username);
+        session.setAttribute("id", id);
         System.out.println(id+"******");
         Employee m1=EmployeeRepo.getCustomerById(id);
         m1.setEmpId(id);
@@ -58,7 +64,7 @@ public class employee {
             if(fieldName=="phoneNo" || fieldName=="aadharNo")
             EmployeeRepo.upd_emp_detail(id, fieldName, new java.math.BigDecimal(fieldValue.toString()));
             else if(fieldName=="salary")
-            EmployeeRepo.upd_emp_detail(id, fieldName, Integer.parseInt(fieldValue.toString()));
+            continue;
             else if(fieldName=="firstName")
             EmployeeRepo.upd_emp_detail(id, "first_name", fieldValue.toString());
             else if(fieldName=="middleName")

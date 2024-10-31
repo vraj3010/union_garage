@@ -2,13 +2,12 @@ package com.example.spring_boot.entity;
 import java.util.Date;
 
 public class Insurance {
-    private int policyNo;            // Primary key, policy number
-    private Date startDate;           // Start date of the insurance policy
-    private Date endDate;             // End date of the insurance policy
-    private int employeeId;           // ID of the employee associated with the policy
-    private long transactionId;       // ID of the transaction associated with the policy
-    private long carId;               // ID of the car associated with the policy
-    private int planId;               // ID of the insurance plan associated with the policy
+    private int policyNo;
+    private Date startDate;
+    private Date dueDate;
+    private Long employeeId;
+    private Long carId;
+    private int planId;
 
     // Getters and Setters
     public int getPolicyNo() {
@@ -27,35 +26,27 @@ public class Insurance {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getDueDate() {
+        return dueDate;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public int getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
 
-    public long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(long transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public long getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(long carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 
@@ -69,8 +60,7 @@ public class Insurance {
 
     @Override
     public String toString() {
-        return "Insurance [policyNo=" + policyNo + ", startDate=" + startDate + ", endDate=" + endDate +
-                ", employeeId=" + employeeId + ", transactionId=" + transactionId +
-                ", carId=" + carId + ", planId=" + planId + "]";
+        return "Insurance [policyNo=" + policyNo + ", startDate=" + startDate + ", dueDate=" + dueDate +
+                ", employeeId=" + employeeId + ", carId=" + carId + ", planId=" + planId + "]";
     }
 }

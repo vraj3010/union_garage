@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Details</title>
+    <style>
+        /* Styling for table */
+        table {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            text-align: right;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Employee Details</h2>
+
+<table>
+    <tr>
+        <th>First Name</th>
+        <td th:text="${e.firstName}"></td>
+    </tr>
+    <tr>
+        <th>Middle Name</th>
+        <td th:text="${e.middleName}"></td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td th:text="${e.lastName}"></td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td th:text="${e.phoneNo}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
