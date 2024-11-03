@@ -116,8 +116,12 @@
                 <tr th:each="repair : ${data}">
                     <td th:text="${repair.repairId}">1</td>
                     <td>
-                        <a th:href="@{/customercar(carId=${repair.carId})}" th:text="${repair.carId}">123</a>
+                        <form th:action="@{/customercar}" method="post" style="display:inline;">
+                            <input type="hidden" name="carId" th:value="${repair.carId}" />
+                            <button type="submit" class="btn-link" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${repair.carId}">123</button>
+                        </form>
                     </td>
+                    
                     <td th:text="${repair.repairDesc}">Engine Repair</td>
                     <td th:text="${#dates.format(repair.repairDate, 'yyyy-MM-dd')}">2024-11-01</td>
                     <td>

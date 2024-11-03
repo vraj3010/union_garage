@@ -150,4 +150,46 @@ public class UserDetailRepository {
         }
 
     }
+
+    public static boolean deleteUserById(long userId) {
+        String deleteUserSQL = "DELETE FROM users WHERE user_id = ?";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(deleteUserSQL)) {
+
+            // Set the user ID parameter
+            stmt.setLong(1, userId);
+
+            // Execute the delete query
+            int rowsAffected = stmt.executeUpdate();
+
+            // Check if the user was successfully deleted
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean doesUsernameExist(String username) {
+        String checkUsernameSQL = "SELECT user_id FROM users WHERE username = ?";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(checkUsernameSQL)) {
+
+            // Set the username parameter
+            stmt.setString(1, username);
+
+            // Execute the query
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                // If there's a result, the username exists
+                return resultSet.next();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

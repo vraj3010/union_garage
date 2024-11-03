@@ -99,4 +99,49 @@ public static boolean updateRepairDetails(Long repairId, Date newRepairDate, Lon
 
     return false;  // Return false if update failed
 }
+
+
+public static boolean checkPaymentDueStatus(long carId) {
+    String query = "SELECT 1 FROM repair WHERE car_id = ? AND repair_status = 'PAYMENT DUE' LIMIT 1";
+
+    try (Connection conn = DatabaseConnector.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setLong(1, carId);
+        ResultSet rs = stmt.executeQuery();
+
+        // If a record is found with 'PAYMENT DUE' status, return true
+        return rs.next();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    // Return false if no 'PAYMENT DUE' status found or if an exception occurs
+    return false;
+}
+
+public static boolean isPaymentDueForCustomer(long custId) {
+    String checkPaymentDueSQL = "SELECT r.repair_id " +
+                                "FROM repair r " +
+                                "JOIN cars c ON r.car_id = c.cid " +
+                                "WHERE c.customer_id = ? AND r.repair_status = 'PAYMENT DUE'";
+
+    try (Connection conn = DatabaseConnector.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(checkPaymentDueSQL)) {
+
+        // Set the customer ID parameter
+        stmt.setLong(1, custId);
+
+        // Execute the query
+        try (ResultSet resultSet = stmt.executeQuery()) {
+            // If there's a result, then at least one car has a repair with "PAYMENT DUE"
+            return resultSet.next();
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 }

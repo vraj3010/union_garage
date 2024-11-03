@@ -247,4 +247,28 @@ public class RequestInsuranceDAO {
 
         return dueInsuranceList;
     }
+    public static boolean cancelSubscription(Long carId) {
+        String updateSubscriptionSQL = "UPDATE insurance SET car_id = NULL, due_date = ? WHERE car_id = ?";
+
+        // Set due date to 100 years later from the current date
+        LocalDate futureDate = LocalDate.now().plusYears(100);
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(updateSubscriptionSQL)) {
+
+            // Set parameters in the prepared statement
+            stmt.setDate(1, Date.valueOf(futureDate));
+            stmt.setLong(2, carId);
+
+            // Execute the update operation
+            int rowsAffected = stmt.executeUpdate();
+
+            // Check if the subscription was updated successfully
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -16,6 +16,7 @@ import com.example.spring_boot.services.UserService;
 
 import java.util.*;
 import com.example.spring_boot.entity.*;
+import com.example.spring_boot.repository.UserDetailRepository;
 @Controller
 public class RegistrationController {
 
@@ -46,10 +47,16 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") UserRegistrationDto userDto,RedirectAttributes redirectAttributes) throws Exception{
-        User Newuser=userService.registerUser(userDto);
-        Long id=Newuser.getId();
-        System.out.println(id+"***");
-        redirectAttributes.addFlashAttribute("id", id);
+        // User Newuser=userService.registerUser(userDto);
+        boolean check=UserDetailRepository.doesUsernameExist(userDto.getUsername());
+        if(check) {
+            String msg="This username is already taken";
+            redirectAttributes.addFlashAttribute("msg", msg);    
+        return "redirect:/register";}
+        // Long id=Newuser.getId();
+      
+        // redirectAttributes.addFlashAttribute("id", id);
+        redirectAttributes.addFlashAttribute("user",userDto);
         return "redirect:/userdetails"; // Redirect to login after registration
     }
 }

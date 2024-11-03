@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring_boot.entity.User;
 import com.example.spring_boot.entity.UserDetails;
+import com.example.spring_boot.entity.UserRegistrationDto;
 import com.example.spring_boot.repository.UserDetailRepository;
 import com.example.spring_boot.services.UserService;
 
@@ -35,13 +36,12 @@ public class UserDetail{
 //     private JdbcTemplate j;
 //     //  @Autowired
 //     // private UserDetailService userDetailsService;
-//     @Autowired
-//     private UserService userService;
+    @Autowired
+    private UserService userService;
     @GetMapping("/userdetails")
-    public String detail(@ModelAttribute("id") Long id,Model model) {
+    public String detail(Model model,@ModelAttribute("user") UserRegistrationDto userDto) {
         UserDetails u=new UserDetails();
-        System.out.println(id+"%%%");
-        u.setCustId(id);
+        System.out.println(userDto.getUsername());
         model.addAttribute("userDetails",u);
         return "UserDetails";
     }
@@ -50,10 +50,17 @@ public class UserDetail{
         
 //     }
     @PostMapping("/userdetails")  
-    public String detail(@ModelAttribute("userDetails") UserDetails userdetails,Model model) throws Exception
+    public String detail(@ModelAttribute("userDetails") UserDetails userdetails,Model model,@ModelAttribute("username") String username,@ModelAttribute("password") String password,@ModelAttribute("role") String role) throws Exception
     {
-        Long id=userdetails.getCustId();
+        UserRegistrationDto userDto=new UserRegistrationDto();
+        userDto.setPassword(password);
+        userDto.setRole(role);
+        userDto.setUsername(username);
+        User Newuser=userService.registerUser(userDto);
+        Long id=Newuser.getId();
         UserDetailRepository.add_new_cust(id);
+        userdetails.setCustId(id);
+  
         for (Field field : UserDetails.class.getDeclaredFields()) {
             field.setAccessible(true); // Allows access to private fields
             
@@ -68,7 +75,6 @@ public class UserDetail{
             UserDetailRepository.upd_cust_detail(id, fieldName, new java.math.BigDecimal(fieldValue.toString()));
             else
             UserDetailRepository.upd_cust_detail(id, fieldName, fieldValue.toString());
-            System.out.println("Field Name: " + fieldName + ", Field Value: " + fieldValue);
         }
         return "redirect:/login";
     }

@@ -86,7 +86,7 @@
                     <td th:text="${plan.premiumAmt}"></td>
                     <td th:text="${plan.frequency}"></td>
                     <td>
-                        <form th:action="@{/insurance}" method="post">
+                        <form th:action="@{/insuranceplan}" method="post">
                             <input type="hidden" th:name="planId" th:value="${plan.planId}" />
                             <input type="hidden" th:name="carId" th:value="${carId}" />
                             <button type="submit" class="select-btn">Select</button>

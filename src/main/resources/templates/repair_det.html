@@ -29,7 +29,7 @@
     <h1>Repair Form</h1>
     <div class="container">
         <div class="repair-form">
-            <form th:action="@{/repair}" method="post">
+            <form th:action="@{/repairadd}" method="post">
                 <!-- Hidden inputs for carId and customerId -->
                 <input type="hidden" th:value="${car.carId}" name="carId"/>
                 <input type="hidden" th:value="${customerId}" name="customerId"/>

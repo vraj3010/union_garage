@@ -5,6 +5,17 @@
     <title>Customer Details</title>
     <link rel="stylesheet" href="/css/info.css">
 </head>
+<style>
+    .alert {
+        width: 100%;
+        padding: 15px;
+        background-color: red;
+        color: white;
+        margin-top: 20px;
+        border-radius: 4px;
+        text-align: center;
+    }
+</style>
 <body>
     <header>
         <div class="logo">
@@ -20,12 +31,11 @@
             </ul>
         </nav>
     </header>
-
+    <div th:if="${msg}" class="alert" th:text="${msg}"></div>
     <div class="container">
         <h1>Customer Details</h1>
 
         <div class="customer-details">
-            <!-- <p><strong>ID:</strong> <span th:text="${userdetails.custId}"></span></p> -->
             <p><strong>First Name:</strong> <span th:text="${userdetails.firstName}"></span></p>
             <p><strong>Middle Name:</strong> <span th:text="${userdetails.middleName}"></span></p>
             <p><strong>Last Name:</strong> <span th:text="${userdetails.lastName}"></span></p>
@@ -38,6 +48,7 @@
         <div class="actions">
             <a th:href="@{/edit/info}" class="btn">Edit Details</a>
             <a th:href="@{/delete/info}" class="btn">Delete your Account</a>
+            <a th:href="@{/previoustransactions}" class="btn">View Previous Transactions</a>
         </div>
     </div>
 </body>

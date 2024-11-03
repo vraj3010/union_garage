@@ -91,10 +91,10 @@
             <th>Policy Number</th>
             <th>Start Date</th>
          
-            <th>Employee ID</th>
+            
             <th>Car ID</th>
             <th>Plan ID</th>
-            <th>Action</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -103,14 +103,8 @@
             <td th:text="${insurance.startDate}"></td>
           
             <td>
-                <form th:action="@{/emp_det}" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${insurance.employeeId}" />
-                    <button type="submit" class="btn-link" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${insurance.employeeId}"></button>
-                </form>
-            </td>
-            <td>
-                <form th:action="@{/car_det}" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${insurance.carId}" />
+                <form th:action="@{/customercar}" method="post" style="display:inline;">
+                    <input type="hidden" name="carId" th:value="${insurance.carId}" />
                     <button type="submit" class="btn-link" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${insurance.carId}"></button>
                 </form>
             </td>
@@ -121,12 +115,6 @@
                 </form>
             </td>
             
-            <td>
-                <form th:action="@{/payinsurance(policyNo=${insurance.policyNo},id=${insurance.employeeId})}" method="post">
-                    <input type="hidden" th:name="policyNo" th:value="${insurance.policyNo}" />
-                    <button type="submit" class="pay-now-btn">Pay Now</button>
-                </form>
-            </td>
         </tr>
     </tbody>
 </table>
@@ -141,33 +129,23 @@
            
             <th>Car Repaired Date</th>
             <th>Cost</th>
-            <th>Employee ID</th>
-            <th>Action</th>
+            
+           
         </tr>
     </thead>
     <tbody>
         <tr th:each="repair : ${r}">
             <td th:text="${repair.repairId}"></td>
             <td>
-                <form th:action="@{/car_det}" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${repair.carId}" />
+                <form th:action="@{/customercar}" method="post" style="display:inline;">
+                    <input type="hidden" name="carId" th:value="${repair.carId}" />
                     <button type="submit" class="btn-link" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${repair.carId}"></button>
                 </form>
             </td>
          
             <td th:text="${#dates.format(repair.repairDate, 'yyyy-MM-dd')}"></td>
             <td th:text="${repair.cost}"></td>
-            <td>
-                <form th:action="@{/emp_det}" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${repair.employeeId}" />
-                    <button type="submit" class="btn-link" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${repair.employeeId}"></button>
-                </form>
-            </td>
-            <td>
-                <form th:action="@{/payrepair(repairId=${repair.repairId},id=${repair.employeeId})}" method="post">
-                    <button type="submit" class="pay-now-btn">Pay Now</button>
-                </form>
-            </td>
+    
         </tr>
     </tbody>
 </table>
@@ -179,9 +157,7 @@
         <tr>
             <th>Sell Request ID</th>
             <th>Model ID</th>
-            <th>Employee ID</th>
-           
-            <th>Action</th>
+           <th>Customer Id</th>
         </tr>
     </thead>
     <tbody>
@@ -194,22 +170,16 @@
                 </form>
             </td>
             <td>
-                <form th:action="@{/emp_det}" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${sell.emplId}" />
+                <form th:action="@{/customer_det}" method="post" style="display:inline;">
+                    <input type="hidden" name="custId" th:value="${sell.custId}" />
                     <button type="submit" class="btn-link" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${sell.emplId}"></button>
-                </form>
-            </td>
-            
-            <td>
-                <form th:action="@{/paybuy(sellReqId=${sell.sellReqId},id=${sell.emplId})}" method="post">
-                    <button type="submit" class="pay-now-btn">Pay Now</button>
                 </form>
             </td>
         </tr>
     </tbody>
 </table>
 
-<a href="/info" class="go-back">Go Back</a> <!-- Go Back Button -->
+<a href="/employee" class="go-back">Go Back</a> <!-- Go Back Button -->
 
 </body>
 </html>

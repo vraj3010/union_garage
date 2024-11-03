@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class repair {
     
-    @GetMapping("/repair")
+    @PostMapping("/repair")
      public String repairst(Model model,@RequestParam Long carId,HttpSession s){
-
-        System.out.println(carId+"&&&&&&");
+        
         Repair m1=new Repair();
         boolean under=RepairDAO.carExistsWithDefaultRepairStatus(carId);
         if (under) {
@@ -33,7 +32,7 @@ public class repair {
         model.addAttribute("car",m1);
         return "repair_det";
     }
-    @PostMapping("/repair")
+    @PostMapping("/repairadd")
     public String postMethodName(@ModelAttribute("car") Repair m1,HttpSession s) {
         //TODO: process POST request
         RepairDAO.addRepairEntry(m1);

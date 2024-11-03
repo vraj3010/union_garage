@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.spring_boot.repository.CarsDAO;
+import com.example.spring_boot.repository.RepairDAO;
 import com.example.spring_boot.repository.UserDetailRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +24,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 @Controller
 public class listcar {
 
@@ -48,9 +53,15 @@ public class listcar {
         model.addAttribute("cars",m1);
         return "listcar";
     }
-    @GetMapping("/car/delete")
-    public String deletecar(Model model,HttpSession session,@RequestParam Long carId){
-        
+    @PostMapping("/car/delete")
+    public String deletecar(Model model,HttpSession session,@RequestParam Long carId ,RedirectAttributes r){
+        boolean check=RepairDAO.checkPaymentDueStatus(carId);
+        if(check) {
+            r.addFlashAttribute("msg", "First Pay your dues");
+            return "redirect:/listcar";
+        }
+        r.addFlashAttribute("msg", "Car Deleted");
+        CarsDAO.deleteCarById(carId);
         return "redirect:/listcar";
     }
 }

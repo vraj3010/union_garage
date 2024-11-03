@@ -101,7 +101,8 @@
 
         <!-- VIN (Vehicle Identification Number) -->
         <label for="vin">VIN</label>
-        <input type="text" id="vin" th:field="*{vin}" placeholder="Enter Vehicle Identification Number" required />
+        <input type="number" id="vin" th:field="*{vin}" placeholder="Enter 6-digit Vehicle Identification Number" 
+               min="100000" max="999999" required title="VIN must be a 6-digit integer." />
 
         <!-- Proof Document (LONGBLOB) -->
         <label for="proof">Proof Document (Upload)</label>
@@ -125,7 +126,7 @@
 
         <!-- Mileage -->
         <label for="mileage">Mileage (in km)</label>
-        <input type="number" id="mileage" th:field="*{mileage}" placeholder="Enter Mileage" />
+        <input type="number" id="mileage" th:field="*{mileage}" placeholder="Enter Mileage" min="0" />
 
         <!-- Customer ID (Hidden) -->
         <input type="hidden" th:field="*{customerId}" />
@@ -133,8 +134,6 @@
         <!-- Submit Button -->
         <button type="submit">Submit</button>
     </form>
-
-  
 </div>
 
 </body>

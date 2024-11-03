@@ -9,6 +9,17 @@ public class Insurance {
     private Long carId;
     private int planId;
 
+    public Insurance(int policyNo, Date startDate, Date dueDate, Long employeeId, Long carId, int planId) {
+        this.policyNo = policyNo;
+        this.startDate = startDate;
+        this.dueDate = dueDate;
+        this.employeeId = employeeId;
+        this.carId = carId;
+        this.planId = planId;
+    }
+    public Insurance(){
+        
+    }
     // Getters and Setters
     public int getPolicyNo() {
         return policyNo;

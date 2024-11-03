@@ -1,5 +1,6 @@
 package com.example.spring_boot.controller;
 
+import java.util.Collection;
 import java.util.Objects;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 @Controller
 public class AuthController {
@@ -33,11 +35,30 @@ public class AuthController {
     if (authentication != null && authentication.isAuthenticated() 
             && !(authentication.getPrincipal() instanceof String)) { // checking if user is not "anonymousUser"
         // Redirect to profile page if already logged in
-        return "redirect:/info";
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String redirectUrl="";
+         for (GrantedAuthority authority : authorities) {
+            System.out.println(authority.getAuthority()+"****");
+            if (authority.getAuthority().equals("USER")) {
+                redirectUrl = "/info";
+                break;
+            } else if (authority.getAuthority().equals("EMPLOYEE")) {
+                redirectUrl = "/employee";
+                break;
+            }
+            else if (authority.getAuthority().equals("ADMIN")) {
+                redirectUrl = "/admin";
+                break;
+            }
+            else if (authority.getAuthority().equals("RENTER")) {
+                redirectUrl = "/renter";
+                break;
+            }
+        }
+        return "redirect:"+redirectUrl;
     }
         
         if (model.containsAttribute("error")) {
-            System.out.println("HIi");
             model.addAttribute("errorMessage", "Invalid username or password.");
         }
         

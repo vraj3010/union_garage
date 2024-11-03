@@ -3,15 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>User Registration</title>
-    <!-- Link to Bootstrap CDN for basic styling -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Link to custom CSS located in resources/static/css/styles.css -->
     <link rel="stylesheet" th:href="@{/css/register.css}">
+    <style>
+        /* Custom alert styling */
+        .custom-alert {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h2>User Registration</h2>
-        <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+        
+        <!-- Display error message with custom styling if present -->
+        <div th:if="${msg}" class="custom-alert" th:text="${msg}"></div>
+        
+        <form th:action="@{/register}" th:object="${user}" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" th:field="*{username}" class="form-control" name="username" required/>

@@ -32,7 +32,7 @@ public class addcar {
         Long id=(Long)session.getAttribute("id");
         Cars c=new Cars();
         c.setCustomerId(id);
-        System.out.println(c.getCustomerId()+"&&");
+      
         model.addAttribute("car", c);
         return "addcar";
     }
@@ -48,7 +48,7 @@ public class addcar {
             c.setCustomerId(id);
             // // Save car details including proof document
             CarsDAO.addNewCar(c);
-            System.out.println(c.getCustomerId()+"^^^^^");
+        
             return "redirect:/info"; // Redirect to another page on success
     }
 }
