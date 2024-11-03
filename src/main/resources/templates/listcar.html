@@ -4,134 +4,171 @@
     <title>Car Details</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .car-details {
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .proof {
-            margin-top: 20px;
+    <style>body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    h1 {
+        color: #333;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .car-details {
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .proof {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e7f3fe;
+        border: 1px solid #bcdff1;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .proof h2 {
+        margin: 0;
+    }
+    
+    .no-proof {
+        text-align: center;
+        color: #dc3545;
+    }
+    
+    /* Styling for options section */
+    .options {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+    
+    .option-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    .option-btn:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+    
+    /* Individual styling for buttons to differentiate them */
+    .options form:nth-child(1) .option-btn {
+        background-color: #28a745; /* Green */
+    }
+    
+    .options form:nth-child(2) .option-btn {
+        background-color: #ffc107; /* Yellow for Repair */
+    }
+    
+    .options form:nth-child(3) .option-btn {
+        background-color: #dc3545; /* Red for Delete */
+    }
+    
+    .options form:nth-child(2) .option-btn:hover {
+        background-color: #e0a800;
+    }
+    
+    .options form:nth-child(3) .option-btn:hover {
+        background-color: #c82333;
+    }
+    
+    /* Go Back button styling */
+    .go-back {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .alert {
+            width: 100%;
             padding: 15px;
-            background-color: #e7f3fe;
-            border: 1px solid #bcdff1;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .proof h2 {
-            margin: 0;
-        }
-
-        .btn-custom {
-            background-color: #007bff;
+            background-color: red;
             color: white;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .btn-custom:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .btn-custom i {
-            margin-right: 5px;
-        }
-
-        .no-proof {
+            margin-top: 20px;
+            border-radius: 4px;
             text-align: center;
-            color: #dc3545;
         }
-
-        /* New options section */
-        .options {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .option-btn {
-            background-color: #28a745;
-            color: white;
-            text-align: center;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .option-btn:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
+    .go-back:hover {
+        background-color: #0056b3;
+    }
+    
     </style>
 </head>
 <body>
-
+    <div th:if="${msg}" class="alert" th:text="${msg}"></div>
     <h1>Car Details</h1>
 
     <div class="container">
         <div th:each="car : ${cars}" class="car-details">
-            <!-- Form to select the car -->
-            <form th:action="@{/car/select}" method="post">
-                <!-- Hidden input to store Car ID -->
-                <input type="hidden" th:value="${car.cid}" name="carId" />
-                
-                <p><strong>VIN:</strong> <span th:text="${car.vin}"></span></p>
-                <p><strong>Car Name:</strong> <span th:text="${car.carName}"></span></p>
-                <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
-                <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
-                <p><strong>Color:</strong> <span th:text="${car.color}"></span></p>
-                <p><strong>Mileage:</strong> <span th:text="${car.mileage}"></span> km</p>
+            
+            <!-- Car Details -->
+            <p><strong>VIN:</strong> <span th:text="${car.vin}"></span></p>
+            <p><strong>Car Name:</strong> <span th:text="${car.carName}"></span></p>
+            <p><strong>Model:</strong> <span th:text="${car.model}"></span></p>
+            <p><strong>Year:</strong> <span th:text="${car.year}"></span></p>
+            <p><strong>Color:</strong> <span th:text="${car.color}"></span></p>
+            <p><strong>Mileage:</strong> <span th:text="${car.mileage}"></span> km</p>
 
-                <!-- Display proof document if available -->
-                <div th:if="${car.proof != null}" class="proof">
-                    <h2>Proof Document Available</h2>
-                    <!-- Button to download the proof document -->
-                    <a th:href="@{/car/download-proof/{cid}(cid=${car.cid})}" class="btn btn-custom">
-                        <i class="fas fa-download"></i> Download Proof
-                    </a>
-                </div>
-                <div th:if="${car.proof == null}" class="no-proof">
-                    <p>No proof document available for this car.</p>
-                </div>
+            <!-- Display proof document if available -->
+            <div th:if="${car.proof != null}" class="proof">
+                <h2>Proof Document Available</h2>
+                <a th:href="@{/car/download-proof/{cid}(cid=${car.cid})}" class="btn btn-custom">
+                    <i class="fas fa-download"></i> Download Proof
+                </a>
+            </div>
+            <div th:if="${car.proof == null}" class="no-proof">
+                <p>No proof document available for this car.</p>
+            </div>
 
-                <!-- Options for Insurance and Repair -->
-                <div class="options">
-                    <a th:href="@{/insurance(carId=${car.cid})}" class="option-btn">
-                        Apply for Insurance
-                    </a>
-                    <a th:href="@{/repair(carId=${car.cid})}" class="option-btn">
-                        Repair this Car
-                    </a>
-                    <a th:href="@{/car/delete(carId=${car.cid})}" class="option-btn">
-                        Delete this Car
-                    </a>
-                </div>
+            <!-- Separate Forms for Options -->
+            <div class="options">
+                <!-- Apply for Insurance Form -->
+                <form th:action="@{/insurance}" method="post" style="display:inline;">
+                    <input type="hidden" name="carId" th:value="${car.cid}" />
+                    <button type="submit" class="option-btn">Apply for Insurance</button>
+                </form>
 
-                <!-- Button to select this car -->
-                <!-- <button type="hidden" class="btn btn-custom"></button> -->
-            </form>
+                <!-- Repair Car Link -->
+                <form th:action="@{/repair}" method="post" style="display:inline;">
+                    <input type="hidden" name="carId" th:value="${car.cid}" />
+                    <button type="submit" class="option-btn">Repair this Car</button>
+                </form>
+
+                <!-- Delete Car Link -->
+                <form th:action="@{/car/delete}" method="post" style="display:inline;">
+                    <input type="hidden" name="carId" th:value="${car.cid}" />
+                    <button type="submit" class="option-btn">Delete this Car</button>
+                </form>
+            </div>
         </div>
+
+        <a href="/info" class="go-back">Go Back</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

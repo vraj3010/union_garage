@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sell Requests</title>
+    <link rel="stylesheet" href="/css/catalog.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        margin-top: 20px;
+    }
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .action-button {
+        margin: 5px;
+    }
+    .go-back {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .go-back:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+
+    <div class="container">
+        <h1 class="my-4">Sell Requests</h1>
+
+        <!-- Alert Message Section -->
+        <div th:if="${message}" class="alert alert-info alert-dismissible fade show" role="alert">
+            <span th:text="${message}"></span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sell Request ID</th>
+                    <th>Model ID</th>
+                    <th>Customer ID</th>
+                    <th>Date Requested</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="request : ${s}">
+                    <td th:text="${request.sellReqId}"></td>
+                    <td>
+                        <form th:action="@{/model-det}" method="post" style="display:inline;">
+                            <input type="hidden" name="modelId" th:value="${request.modelId}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${request.modelId}">Model ID</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/customer_det}" method="post" style="display:inline;">
+                            <input type="hidden" name="custId" th:value="${request.custId}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${request.custId}">Customer ID</button>
+                        </form>
+                    </td>
+                    
+                    <td th:text="${request.datePurchased}"></td>
+                    <td>
+                        <div class="action-buttons">
+                            <form th:action="@{/accept(request=${request.sellReqId},model_id=${request.modelId})}" method="post" class="action-button">
+                                <button type="submit" class="btn btn-success">Accept</button>
+                            </form>
+                            <form th:action="@{/reject(request=${request.sellReqId})}" method="post" class="action-button">
+                                <button type="submit" class="btn btn-danger">Reject</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="/employee" class="go-back">Go Back</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

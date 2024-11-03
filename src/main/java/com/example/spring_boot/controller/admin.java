@@ -39,7 +39,6 @@ public class admin{
         // System.out.println(userDto.getPassword()+"^^^##$$%#$%");
         User Newuser=userService.registerUser(userDto);
         Long id=Newuser.getId();
-        System.out.println(id);
         EmployeeRepo.add_new_emp(id);
         return "redirect:/admin"; // Redirect to login after registration
     }

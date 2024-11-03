@@ -120,4 +120,25 @@ public class CarsDAO {
         }
 
         return car;}
+
+        public static boolean deleteCarById(long carId) {
+            String deleteCarSQL = "DELETE FROM cars WHERE cid = ?";
+    
+            try (Connection conn = DatabaseConnector.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(deleteCarSQL)) {
+    
+                // Set the car ID in the prepared statement
+                stmt.setLong(1, carId);
+    
+                // Execute the delete operation
+                int rowsAffected = stmt.executeUpdate();
+    
+                // Check if a row was deleted
+                return rowsAffected > 0;
+    
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
 }

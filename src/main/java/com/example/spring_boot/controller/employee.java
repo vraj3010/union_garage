@@ -25,7 +25,6 @@ public class employee {
         String username=auth.getName();
         Long id=UserDAO.getUserIdByUsername(username);
         session.setAttribute("id", id);
-        System.out.println(id+"******");
         Employee m1=EmployeeRepo.getCustomerById(id);
         m1.setEmpId(id);
         model.addAttribute("employee",m1);
@@ -57,8 +56,6 @@ public class employee {
             String fieldName = field.getName();
             Object fieldValue = field.get(employee);
             
-            System.out.println(fieldName);
-            System.out.println(fieldValue);
             // Print each field name and value
             if(fieldName=="dept_id") continue;
             if(fieldName=="phoneNo" || fieldName=="aadharNo")

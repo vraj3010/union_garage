@@ -48,12 +48,11 @@ public User registerUser(UserRegistrationDto userDto) throws Exception {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEnabled(true);
         // Assign default role USER
-        System.out.println(userDto.getRole()+"######################################################");
         Role userRole = roleRepository.findByRoleName(userDto.getRole());
         Set<Role> roles = new HashSet<>();
         roles.add(userRole);
         user.setRoles(roles);
-        userRepository.saveUser(user);
+        if(!userRepository.saveUser(user)) return null;
         user.setId(userRepository.getIdByUsername(user.getUsername()));
         return user;
     }

@@ -4,11 +4,61 @@
     <meta charset="UTF-8">
     <title>Buy Car</title>
     <link rel="stylesheet" href="/css/catalog.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<style>
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+    }
+    .track-order {
+        background-color: #ffc107;
+    }
+    .track-order:hover {
+        background-color: #e0a800;
+    }
+    .go-back {
+        background-color: #007bff;
+    }
+    .go-back:hover {
+        background-color: #0056b3;
+    }
+    .current-purchases {
+        background-color: #28a745;
+    }
+    .current-purchases:hover {
+        background-color: #218838;
+    }
+</style>
 <body>
-    <div class="container">
-        <h1 class="my-4">Car Catalogue</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Car Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/buy}">Car Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/track-order}">Track Order</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        
         
         <table class="table table-bordered">
             <thead>
@@ -19,25 +69,31 @@
                     <th>Engine Type</th>
                     <th>Price</th>
                     <th>Manufacture Year</th>
-                    <th>Manufacturer ID</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="car : ${cata}">
-                    <td  th:text="${car.modelId }"></td>
+                    <td th:text="${car.modelId}"></td>
                     <td th:text="${car.modelName}"></td>
                     <td th:text="${car.mileage} + ' km'"></td>
                     <td th:text="${car.engineType}"></td>
                     <td th:text="${car.price} + ' USD'"></td>
                     <td th:text="${car.manufactureYear}"></td>
-                    <td th:text="${car.manufacturerId}"></td>
                     <td>
-                        <a th:href="@{/buy/{id}(id=${car.modelId})}" class="btn btn-primary">Buy</a>
+                        <form th:action="@{/avail}" method="post" style="display:inline;">
+                            <input type="hidden" name="car_id" th:value="${car.modelId}" />
+                            <button type="submit" class="btn btn-primary">Buy</button>
+                        </form>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <div class="action-buttons">
+            <a href="/info" class="button go-back">Go Back</a>
+          
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

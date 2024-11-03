@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,8 @@ import java.util.Map;
 import com.example.spring_boot.entity.Employee;
 import com.example.spring_boot.entity.UserDetails;
 import com.example.spring_boot.repository.EmployeeRepo;
+import com.example.spring_boot.repository.RepairDAO;
+import com.example.spring_boot.repository.SellCarDAO;
 import com.example.spring_boot.repository.UserDAO;
 // import com.example.spring_boot.services.UserDetailService;
 import com.example.spring_boot.repository.UserDetailRepository;
@@ -55,8 +59,7 @@ public class info {
             String fieldName = field.getName();
             Object fieldValue = field.get(m1);
             
-            System.out.println(fieldName);
-            System.out.println(fieldValue);
+           
             // Print each field name and value
             if(fieldName=="cust_id") continue;
             if(fieldName=="phoneNo")
@@ -71,9 +74,15 @@ public class info {
         return "redirect:/info";
     }
     @GetMapping("/delete/info")
-    public String deleteCustomer(HttpSession session) {
+    public String deleteCustomer(HttpSession session,RedirectAttributes r) {
         Long id=(Long)session.getAttribute("id");
-        UserDetailRepository.deleteCustomerById(id); // Assuming deleteById method exists in UserDetailRepository
-        return "redirect:/home"; // Redirect to a list of customers after deletion
+        boolean check=SellCarDAO.isPaymentDueForCustomer(id);
+        boolean check2=RepairDAO.isPaymentDueForCustomer(id);
+        if(check || check2){
+            r.addFlashAttribute("msg","First Clear your Dues");
+        return "redirect:/info";}
+
+        UserDetailRepository.deleteCustomerById(id);
+        return "redirect:/logout"; // Redirect to a list of customers after deletion
     }
 }

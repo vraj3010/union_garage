@@ -2,20 +2,19 @@ package com.example.spring_boot.entity;
 import java.util.Date;
 
 public class Trxn {
-    private int transId;
+    private Long transId;
     private String transDesc;
     private String method;
     private Date transDate;
-    private String tot;
-    private int employeeId;
-    private int customerId;
+    private int total;
 
+    
     // Getters and Setters
-    public int getTransId() {
+    public Long getTransId() {
         return transId;
     }
 
-    public void setTransId(int transId) {
+    public void setTransId(Long transId) {
         this.transId = transId;
     }
 
@@ -43,27 +42,11 @@ public class Trxn {
         this.transDate = transDate;
     }
 
-    public String getTot() {
-        return tot;
+    public int getTotal() {
+        return total;
     }
 
-    public void setTot(String tot) {
-        this.tot = tot;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setTotal(int tot) {
+        this.total = tot;
     }
 }

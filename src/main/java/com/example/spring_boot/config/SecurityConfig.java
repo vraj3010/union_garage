@@ -44,11 +44,11 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/error","/login", "/logout","/resources/**","/home","/css/**","/fonts/**","/images/**","/js/**","/register","/services/**","/userdetails","/employee/").permitAll()
-                    .requestMatchers("/info/**","/buy").hasAuthority("USER")
-                    .requestMatchers("/yy").hasAuthority("EMPLOYEE")
-                    .requestMatchers("/admin","addemp").hasAuthority("ADMIN")
-                    .anyRequest().authenticated()
+                .requestMatchers("/error", "/login", "/logout", "/resources/**", "/home", "/css/**", "/fonts/**", "/images/**", "/js/**", "/register", "/services/**", "/userdetails").permitAll()
+                .requestMatchers("/info/**", "/buy", "/addcar", "/track-order", "/edit/info", "/insurance", "/listcar", "/paymentdue", "/repair").hasAuthority("USER")
+                .requestMatchers("/yy", "/employee/", "/carsforrepair", "/entercost", "/verifyinsurance", "/employee", "/employee/edit", "/sell").hasAuthority("EMPLOYEE")
+                .requestMatchers("/admin", "/addemp").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
             )
             .formLogin(formLogin ->
                 formLogin

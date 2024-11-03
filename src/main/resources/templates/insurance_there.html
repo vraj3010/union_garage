@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         .container {
             width: 60%;
             margin: 30px auto;
@@ -18,13 +18,13 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        
+
         h1 {
             text-align: center;
             color: #333;
             font-size: 24px;
         }
-        
+
         .section {
             margin-bottom: 20px;
             padding: 15px;
@@ -61,12 +61,46 @@
         .back-link:hover {
             color: #0056b3;
         }
+
+        /* Alert styling */
+        .alert {
+            padding: 15px;
+            background-color: #f44336; /* Red */
+            color: white;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: none; /* Hidden by default */
+        }
+
+        .cancel-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545; /* Bootstrap Danger Color */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Insurance and Plan Details</h1>
         
+        <!-- Alert Message Section -->
+        <div class="alert" th:if="${msg}">
+            <span th:text="${msg}"></span>
+        </div>
+
         <!-- Insurance Plan Details Section -->
         <div class="section">
             <h2>Current Insurance Plan</h2>
@@ -89,6 +123,12 @@
             <p><span class="label">Plan ID:</span> <span th:text="${insure.planId}"></span></p>
         </div>
         
+        <!-- Cancel Subscription Button -->
+        <form th:action="@{/cancel-subscription}" method="post">
+            <input type="hidden" name="carId" th:value="${insure.carId}" />
+            <button type="submit" class="cancel-btn">Cancel Subscription</button>
+        </form>
+
         <a href="/listcar" class="back-link">Go Back</a>
     </div>
 </body>

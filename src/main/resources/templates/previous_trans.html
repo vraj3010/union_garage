@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Transactions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        .alert {
+            width: 100%;
+            padding: 15px;
+            background-color: #28a745;
+            color: white;
+            margin-top: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .go-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .go-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Previous Transactions</h1>
+
+    <div th:if="${message}" class="alert" th:text="${message}"></div>
+
+    <h2>Insurance Payments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Policy No</th>
+                <th>Start Date</th>
+                <th>Employee ID</th>
+                <th>Car ID</th>
+                <th>Plan ID</th>
+                <th>Transaction ID</th>
+                <th>Payment Method</th>
+                <th>Payment Date</th>
+                <th>Amount Paid</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${m}">
+                <td th:text="${entry.key.policyNo}"></td>
+                <td th:text="${#dates.format(entry.key.startDate, 'yyyy-MM-dd')}"></td>
+                <td>
+                    <form th:action="@{/emp_det}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${entry.key.employeeId}" />
+                        <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.employeeId}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/customercar}" method="post" style="display:inline;">
+                        <input type="hidden" name="carId" th:value="${entry.key.carId}" />
+                        <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.carId}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/plan}" method="post" style="display:inline;">
+                        <input type="hidden" name="plan_id" th:value="${entry.key.planId}" />
+                        <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.planId}"></button>
+                    </form>
+                </td>
+                <td th:text="${entry.value.transId}"></td>
+                <td th:text="${entry.value.method}"></td>
+                <td th:text="${#dates.format(entry.value.transDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${entry.value.total}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Repair Payments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Repair ID</th>
+                <th>Car ID</th>
+                <th>Employee ID</th>
+                <th>Transaction ID</th>
+                <th>Payment Method</th>
+                <th>Payment Date</th>
+                <th>Amount Paid</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${m2}">
+                <td th:text="${entry.key.repairId}"></td>
+                <td>
+                    <form th:action="@{/customercar}" method="post" style="display:inline;">
+                        <input type="hidden" name="carId" th:value="${entry.key.carId}" />
+                        <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.carId}"></button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/emp_det}" method="post" style="display:inline;">
+                        <input type="hidden" name="id" th:value="${entry.key.employeeId}" />
+                        <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.employeeId}"></button>
+                    </form>
+                </td>
+                <td th:text="${entry.value.transId}"></td>
+                <td th:text="${entry.value.method}"></td>
+                <td th:text="${#dates.format(entry.value.transDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${entry.value.total}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Sell Transactions</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Sell Request ID</th>
+            <th>Model ID</th>
+          
+            <th>Employee ID</th>
+            <th>Transaction ID</th>
+            <th>Date Purchased</th>
+            <th>Payment Method</th>
+            <th>Payment Date</th>
+            <th>Amount Paid</th>
+     
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="entry : ${m3}">
+            <td th:text="${entry.key.sellReqId}"></td>
+            <td>
+                <form th:action="@{/model-det}" method="post" style="display:inline;">
+                    <input type="hidden" name="modelId" th:value="${entry.key.modelId}" />
+                    <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.modelId}"></button>
+                </form>
+            </td>
+            
+            <td>
+                <form th:action="@{/emp_det}" method="post" style="display:inline;">
+                    <input type="hidden" name="id" th:value="${entry.key.emplId}" />
+                    <button type="submit" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${entry.key.emplId}"></button>
+                </form>
+            </td>
+            <td th:text="${entry.value.transId}"></td>
+            <td th:text="${#dates.format(entry.key.datePurchased, 'yyyy-MM-dd')}"></td>
+            <td th:text="${entry.value.method}"></td> <!-- Added payment method -->
+            <td th:text="${#dates.format(entry.value.transDate, 'yyyy-MM-dd')}"></td> <!-- Added payment date -->
+            <td th:text="${entry.value.total}"></td> <!-- Added amount paid -->
+    
+        </tr>
+    </tbody>
+</table>
+
+    <a href="/info" class="go-back">Go Back</a>
+</div>
+
+</body>
+</html>

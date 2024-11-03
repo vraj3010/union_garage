@@ -36,12 +36,20 @@ public class UserRepository {
         return u;
     }
     // Save user method
-    public void saveUser(User user) {
-        String sql = "INSERT INTO users (username, password, enabled) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.isEnabled());
-        Long userId = getIdByUsername(user.getUsername());
-        user.setId(userId);
-        saveUserRoles(user);  // Save roles using the new user ID
+    public boolean saveUser(User user) {
+        try {
+            String sql = "INSERT INTO users (username, password, enabled) VALUES (?, ?, ?)";
+            jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.isEnabled());
+            
+            Long userId = getIdByUsername(user.getUsername());
+            user.setId(userId);
+            
+            saveUserRoles(user);  // Save roles using the new user ID
+            return true;  // Success
+        } catch (Exception e) {
+            System.err.println("Error saving user: " + e.getMessage());
+            return false;  // Failure
+        }
     }
 
     // Method to save user roles

@@ -14,6 +14,7 @@ import com.example.spring_boot.repository.EmployeeRepo;
 import com.example.spring_boot.repository.InsurancePlanDAO;
 import com.example.spring_boot.repository.PaymentDAO;
 import com.example.spring_boot.repository.RequestInsuranceDAO;
+import com.example.spring_boot.repository.SellCarDAO;
 @Controller
 public class paymentdue {
     @GetMapping("/paymentdue")
@@ -21,24 +22,25 @@ public class paymentdue {
         Long id=(Long)s.getAttribute("id");
         List<Insurance> i=RequestInsuranceDAO.getDueInsuranceByCustomerId(id);
         List<Repair> r=PaymentDAO.getRepairsWithPaymentDueByCustomerId(id);
-        System.out.println(r.size()+"!@#$");
+        List<SellBuffer> se=SellCarDAO.getSellBufferEntriesByCustomerId(id);
         model.addAttribute("r", r);
         model.addAttribute("i", i);
+        model.addAttribute("s", se);
         return "paymentdue";
     }
-    @GetMapping("/emp_det")
+    @PostMapping("/emp_det")
     public String getMethodName(Model model,@RequestParam Long id) {
         Employee e=EmployeeRepo.getCustomerById(id);
         model.addAttribute("e", e);
         return "emp_det";
     }
-    @GetMapping("/car_det")
+    @PostMapping("/car_det")
     public String cardescribe(Model model,@RequestParam Long id) {
        Cars car=CarsDAO.getCarById(id);
         model.addAttribute("car", car);
-        return "car_det";
+      return "car_det";
     }
-    @GetMapping("/plan_det")
+    @PostMapping("/plan_det")
     public String plan(Model model,@RequestParam int id) {
        InsurancePlan i=InsurancePlanDAO.getInsurancePlanById(id);
         model.addAttribute("i", i);
@@ -55,6 +57,13 @@ public class paymentdue {
     public String payrepair(Model model,@RequestParam("repairId") Long repairId,@RequestParam("id") Long id,RedirectAttributes redirectAttributes,HttpSession s){
         // System.out.println(id+"^^^");
         PaymentDAO.processRepairPayment(repairId,(Long)s.getAttribute("id"),id);
+        redirectAttributes.addFlashAttribute("msg", "Payment Successful");
+        return "redirect:/paymentdue";
+    }
+    @PostMapping("/paybuy")
+    public String paybuy(Model model,@RequestParam("sellReqId") int sellReqid,@RequestParam("id") Long id,RedirectAttributes redirectAttributes,HttpSession s){
+        System.out.println(sellReqid);
+        PaymentDAO.sellCar(sellReqid,(Long)s.getAttribute("id"),id);
         redirectAttributes.addFlashAttribute("msg", "Payment Successful");
         return "redirect:/paymentdue";
     }

@@ -58,14 +58,24 @@
                 <!-- Iterating over the list of RequestInsurance objects -->
                 <tr th:each="request : ${r}">
                     <td>
-                        <a th:href="@{/plan(plan_id=${request.planId})}" th:text="${request.planId}" class="text-primary">Plan ID</a>
+                        <form th:action="@{/plan}" method="post" style="display:inline;">
+                            <input type="hidden" name="plan_id" th:value="${request.planId}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${request.planId}">Plan ID</button>
+                        </form>
                     </td>
                     <td>
-                        <a th:href="@{/customercar(carId=${request.carId})}" th:text="${request.carId}" class="text-primary">Car ID</a>
+                        <form th:action="@{/customercar}" method="post" style="display:inline;">
+                            <input type="hidden" name="carId" th:value="${request.carId}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${request.carId}">Car ID</button>
+                        </form>
                     </td>
                     <td>
-                        <a th:href="@{/customer_det(custId=${request.custId})}" th:text="${request.custId}" class="text-primary">Customer ID</a>
+                        <form th:action="@{/customer_det}" method="post" style="display:inline;">
+                            <input type="hidden" name="custId" th:value="${request.custId}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${request.custId}">Customer ID</button>
+                        </form>
                     </td>
+                    
                     <td>
                         <form th:action="@{/verifiedcust}" method="get">
                             <input type="hidden" th:name="plan_id" th:value="${request.planId}" />

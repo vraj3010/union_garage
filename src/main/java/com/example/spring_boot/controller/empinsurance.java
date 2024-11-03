@@ -2,6 +2,7 @@ package com.example.spring_boot.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.spring_boot.entity.*;
@@ -24,21 +25,21 @@ public class empinsurance {
         model.addAttribute("r",r);
         return "verify_insurance";
     }
-    @GetMapping("/customercar")
+    @PostMapping("/customercar")
     public String customercar(Model model,@RequestParam("carId") long car_id){
         
         List<Cars> m1 = Arrays.asList(CarsDAO.getCarById(car_id));
         model.addAttribute("cars",m1);
-        return "carlist";
+        return "customercar";
     }
-    @GetMapping("/plan")
+    @PostMapping("/plan")
     public String getMethodName(Model model,@RequestParam("plan_id") int plan_id) {
        
         InsurancePlan i=InsurancePlanDAO.getInsurancePlanById(plan_id);
         model.addAttribute("i",i);
         return "plandetails";
     }
-     @GetMapping("/customer_det")
+     @PostMapping("/customer_det")
      public String getMethodName(@RequestParam long custId,Model model) {
         UserDetails u=UserDetailRepository.getCustomerById(custId);
         model.addAttribute("u",u);

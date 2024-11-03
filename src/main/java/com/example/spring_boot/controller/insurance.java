@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.spring_boot.entity.*;
 import com.example.spring_boot.repository.InsurancePlanDAO;
 import com.example.spring_boot.repository.RequestInsuranceDAO;
@@ -14,8 +16,8 @@ import com.example.spring_boot.repository.RequestInsuranceDAO;
 import java.util.List;
 @Controller
 public class insurance {
-    @GetMapping("/insurance")
-    public String getinsuranceplans(Model model,HttpSession session,@RequestParam Long carId) {
+    @PostMapping("/insurance")
+    public String getinsuranceplans(Model model,HttpSession session,@RequestParam("carId") Long carId) {
 
         List<InsurancePlan> i= InsurancePlanDAO.getAllInsurancePlans();
         model.addAttribute("carId",carId);
@@ -30,16 +32,16 @@ public class insurance {
         }
         found=RequestInsuranceDAO.doesCarExistInRequestInsurance(carId);
         if(found){
-            System.out.println(carId+"&&&");
+           
             int p=RequestInsuranceDAO.getPlanIdFromRequestInsurance(carId);
-            System.out.println(p+"&&&");
+           
             InsurancePlan p2=InsurancePlanDAO.getInsurancePlanById(p);
             model.addAttribute("plan",p2);
             return "insure_request_there";
         }
         return "insurance_plan";
     }
-    @PostMapping("/insurance")
+    @PostMapping("/insuranceplan")
 public String selectPlan(@RequestParam("planId") int planId, @RequestParam("carId") Long carId) {
     // Add the selected plan ID to the model
     RequestInsuranceDAO.addRequestInsurance(planId,carId);
@@ -48,6 +50,13 @@ public String selectPlan(@RequestParam("planId") int planId, @RequestParam("carI
     @GetMapping("/cancel-request")
     public String takeRequestBack(@RequestParam("carId") Long carId){
         RequestInsuranceDAO.deleteEntryByCarId(carId);
+        return "redirect:/listcar";
+    }
+
+    @PostMapping("cancel-subscription")
+    public String cancel(@RequestParam Long carId,RedirectAttributes r){
+        r.addFlashAttribute("msg","Insurance Cancelled Successfully");
+        RequestInsuranceDAO.cancelSubscription(carId);
         return "redirect:/listcar";
     }
 }

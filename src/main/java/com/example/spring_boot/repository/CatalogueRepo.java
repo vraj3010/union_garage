@@ -69,13 +69,13 @@ public class CatalogueRepo {
     }
 
     // Method to retrieve a catalogue entry by model_id
-    public catalogue getCatalogueById(int modelId) {
+    public static catalogue getCatalogueById(Long modelId) {
         String sql = "SELECT * FROM catalogue WHERE model_id = ?";
         catalogue catalogue = null;
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, modelId);
+            pstmt.setLong(1, modelId);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
