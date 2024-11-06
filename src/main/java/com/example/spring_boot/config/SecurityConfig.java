@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/error", "/login", "/logout", "/resources/**", "/home", "/css/**", "/fonts/**", "/images/**", "/js/**", "/register", "/services/**", "/userdetails","contact").permitAll()
                 .requestMatchers("/info/**", "/buy", "/addcar", "/track-order", "/edit/info", "/insurance", "/listcar", "/paymentdue", "/repair").hasAuthority("USER")
                 .requestMatchers("/yy", "/employee/", "/carsforrepair", "/entercost", "/verifyinsurance", "/employee", "/employee/edit", "/sell").hasAuthority("EMPLOYEE")
-                .requestMatchers("/admin", "/addemp").hasAuthority("ADMIN")
+                .requestMatchers("/admin", "/addemp","manufacturers","employees","addmanu","addmanucar").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(formLogin ->
