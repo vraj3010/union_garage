@@ -16,16 +16,48 @@ import com.example.spring_boot.entity.SellBuffer;
 import com.example.spring_boot.entity.catalogue;
 import org.springframework.ui.Model;
 import java.util.List;
+import java.util.stream.Collectors;
 @Controller
 public class buy {
 @GetMapping("/buy")
-public String buycar(Model model)
+public String buycar(Model model,@RequestParam(required = false) String engineType,
+@RequestParam(required = false) Integer mileageMin,
+@RequestParam(required = false) Integer mileageMax,
+@RequestParam(required = false) Integer priceMin,
+@RequestParam(required = false) Integer priceMax,
+@RequestParam(required = false) String sortOrder)
 {
-    List<catalogue> cata=CatalogueRepo.getAllCatalogueEntries();
+
+    
+    System.out.println(engineType);
     // for (int i = 0; i < cata.size(); i++) {
     //     catalogue car = cata.get(i);
     //     System.out.println(car.getModel_id());
     // }
+    if(mileageMin==null) mileageMin=0;
+    if(mileageMax==null) mileageMax=Integer.MAX_VALUE;
+    if(priceMin==null) priceMin=0;
+    if(priceMax==null) priceMax=Integer.MAX_VALUE;
+
+    if (sortOrder != null) {
+            switch (sortOrder) {
+                case "priceAsc":
+                   sortOrder="price_asc";
+                    break;
+                case "priceDesc":
+                    sortOrder="price_desc";
+                    break;
+                case "mileageAsc":
+                    sortOrder="mileage_asc";
+                    break;
+                case "mileageDesc":
+                    sortOrder="mileage_desc";
+                    break;
+                default:
+                    break;
+            }
+        }
+    List<catalogue> cata=CatalogueRepo.getAllCatalogueEntries(mileageMin,mileageMax,priceMin,priceMax,sortOrder,engineType);
     model.addAttribute("cata", cata);
     return "buy";
 }

@@ -10,24 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.spring_boot.entity.User;
-import com.example.spring_boot.entity.UserDetails;
-import com.example.spring_boot.entity.UserRegistrationDto;
+import com.example.spring_boot.repository.CustomerEmailDAO;
 import com.example.spring_boot.repository.UserDetailRepository;
 import com.example.spring_boot.services.UserService;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 // import jakarta.validation.OverridesAttribute;
-
-
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
+import com.example.spring_boot.entity.*;
 
 @Controller
 public class UserDetail{
@@ -41,8 +36,10 @@ public class UserDetail{
     @GetMapping("/userdetails")
     public String detail(Model model,@ModelAttribute("user") UserRegistrationDto userDto) {
         UserDetails u=new UserDetails();
+        List<String> emailList = new ArrayList<>();
         System.out.println(userDto.getUsername());
         model.addAttribute("userDetails",u);
+         model.addAttribute("emailList", emailList);
         return "UserDetails";
     }
 //     @Override
@@ -50,8 +47,9 @@ public class UserDetail{
         
 //     }
     @PostMapping("/userdetails")  
-    public String detail(@ModelAttribute("userDetails") UserDetails userdetails,Model model,@ModelAttribute("username") String username,@ModelAttribute("password") String password,@ModelAttribute("role") String role) throws Exception
+    public String detail( @RequestParam("emailList") List<String> e,@ModelAttribute("userDetails") UserDetails userdetails,Model model,@ModelAttribute("username") String username,@ModelAttribute("password") String password,@ModelAttribute("role") String role) throws Exception
     {
+
         UserRegistrationDto userDto=new UserRegistrationDto();
         userDto.setPassword(password);
         userDto.setRole(role);
@@ -76,6 +74,8 @@ public class UserDetail{
             else
             UserDetailRepository.upd_cust_detail(id, fieldName, fieldValue.toString());
         }
+
+        CustomerEmailDAO.addCustomerEmails(id, e);
         return "redirect:/login";
     }
     

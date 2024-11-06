@@ -66,12 +66,43 @@
                        pattern="[A-Za-z]{2}\d{13}" maxlength="15" required title="License number must start with 2 letters followed by 13 digits">
             </div>
 
+            <!-- Email Fields -->
+            <div class="col-12">
+                <label class="form-label">Email Addresses</label>
+                <div id="emailContainer">
+                    <div th:each="email, iterStat : ${email}">
+                        <div class="email-entry">
+                            <input type="email" name="emailList" th:value="${email}" class="form-control" placeholder="Enter Email" required>
+                            <button type="button" class="btn btn-danger remove-email" th:if="${iterStat.index > 0}" onclick="removeEmail(this)">-</button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success mt-2" onclick="addEmail()">+ Add Email</button>
+            </div>
+
+
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>
 
+    <script>
+        function addEmail() {
+            const emailContainer = document.getElementById("emailContainer");
+            const emailEntry = document.createElement("div");
+            emailEntry.className = "email-entry";
+            emailEntry.innerHTML = `
+                <input type="email" name="emailList" class="form-control" placeholder="Enter Email" required>
+                <button type="button" class="btn btn-danger remove-email" onclick="removeEmail(this)">-</button>
+            `;
+            emailContainer.appendChild(emailEntry);
+        }
+
+        function removeEmail(button) {
+            button.parentElement.remove();
+        }
+    </script>
     <!-- Bootstrap 5 JS and dependencies -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
 </body>

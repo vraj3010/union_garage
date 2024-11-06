@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dummy Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Payment Form -->
+        <div id="paymentForm">
+            <h2>Payment Form</h2>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount (USD)</label>
+                <input type="number" id="amount" name="amount" required min="1">
+            </div>
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" name="cardNumber" required pattern="\d{16}">
+            </div>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date (MM/YY)</label>
+                <input type="text" id="expiryDate" name="expiryDate" required pattern="\d{2}/\d{2}">
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" required pattern="\d{3}">
+            </div>
+            <button type="button" onclick="processPayment()">Pay Now</button>
+        </div>
+
+        <!-- Confirmation Message -->
+        <div id="confirmationMessage" style="display: none;">
+            <h2>Payment Confirmation</h2>
+            <p id="confirmationText"></p>
+            <button onclick="goBackToForm()">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        function processPayment() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const amount = document.getElementById('amount').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+
+            // Simple validation (in real applications, add more validation)
+            if (!name || !email || !amount || !cardNumber || !expiryDate || !cvv) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Simulate payment processing delay
+            alert('Processing payment...');
+
+            // Display confirmation message
+            document.getElementById('paymentForm').style.display = 'none';
+            document.getElementById('confirmationMessage').style.display = 'block';
+            document.getElementById('confirmationText').textContent = 
+                `Thank you, ${name}! Your payment of $${amount} was successful.`;
+        }
+
+        function goBackToForm() {
+            // Reset the form and show the payment form again
+            document.getElementById('paymentForm').style.display = 'block';
+            document.getElementById('confirmationMessage').style.display = 'none';
+            document.getElementById('paymentForm').reset();
+        }
+    </script>
+</body>
+</html>

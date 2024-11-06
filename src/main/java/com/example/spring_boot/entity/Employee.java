@@ -41,11 +41,11 @@ public class Employee {
         this.phoneNo = phoneNo;
     }
 
-    public Long getDept() {
+    public Long getDeptId() {
         return dept_id;
     }
 
-    public void setDept(Long dept_id) {
+    public void setDeptId(Long dept_id) {
         this.dept_id = dept_id;
     }
 

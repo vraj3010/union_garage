@@ -15,11 +15,31 @@
         border-radius: 4px;
         text-align: center;
     }
+    .customer-emails {
+        margin-top: 20px;
+    }
+    .customer-emails p {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+    .customer-emails ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .customer-emails li {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        color: #333;
+        font-size: 1em;
+    }
 </style>
 <body>
     <header>
         <div class="logo">
-            <h1>Car Services</h1> <!-- Logo Title -->
+            <h1>Car Services</h1>
         </div>
         <nav class="navbar">
             <ul>
@@ -31,7 +51,9 @@
             </ul>
         </nav>
     </header>
+    
     <div th:if="${msg}" class="alert" th:text="${msg}"></div>
+    
     <div class="container">
         <h1>Customer Details</h1>
 
@@ -43,6 +65,14 @@
             <p><strong>Mobile No:</strong> <span th:text="${userdetails.phoneNo}"></span></p>
             <p><strong>Address:</strong> <span th:text="${userdetails.houseNo} + ', ' + ${userdetails.street} + ', ' + ${userdetails.city} + ', ' + ${userdetails.state}"></span></p>
             <p><strong>Aadhar No:</strong> <span th:text="${userdetails.aadharNo}"></span></p>
+        </div>
+
+        <!-- Email List Section -->
+        <div class="customer-emails">
+            <p>Email(s):</p>
+            <ul>
+                <li th:each="email : ${email}" th:text="${email}"></li>
+            </ul>
         </div>
 
         <div class="actions">

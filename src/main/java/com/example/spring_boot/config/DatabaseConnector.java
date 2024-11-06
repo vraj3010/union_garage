@@ -13,7 +13,6 @@ public class DatabaseConnector {
         Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(DB);  // Replace 'ug' with your actual database name
-            System.out.println("Everything ok");
         }
         return conn;
     }

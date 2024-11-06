@@ -33,15 +33,23 @@
 
 //     // General exception handler with logout
 //     @ExceptionHandler(Exception.class)
-//     public String handleException(Exception ex, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) {
-//         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//         if (auth != null) {
-//             new SecurityContextLogoutHandler().logout(request, response, auth);
-//         }
-        
-//         String errorMessage = "An unexpected error occurred: " + ex.getMessage();
-//         redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
-        
+// public String handleException(Exception ex, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) {
+//     // Check if the exception is a NoResourceFoundException
+//     if (ex instanceof org.springframework.web.servlet.resource.NoResourceFoundException) {
+//         // Set a simpler error message without logging out
+//         redirectAttributes.addFlashAttribute("errorMessage", "Resource not found.");
 //         return "redirect:/error";
 //     }
+
+//     // For other exceptions, perform logout
+//     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//     if (auth != null) {
+//         new SecurityContextLogoutHandler().logout(request, response, auth);
+//     }
+
+//     String errorMessage = "An unexpected error occurred: " + ex.getMessage();
+//     redirectAttributes.addFlashAttribute("errorMessage", errorMessage);
+
+//     return "redirect:/error";
+// }
 // }

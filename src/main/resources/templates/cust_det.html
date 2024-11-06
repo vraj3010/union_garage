@@ -100,6 +100,12 @@
                 <span class="label">License:</span> 
                 <span th:text="${u.license}">DL-1234-5678</span>
             </div>
+            <div class="customer-detail">
+                <span class="label">Email Addresses:</span>
+                <ul class="email-list">
+                    <li th:each="email : ${email}" th:text="${email}">example@example.com</li>
+                </ul>
+            </div>
 
             <!-- Go Back link -->
             <a href="#" onclick="history.back()" class="back-link">Go Back</a>

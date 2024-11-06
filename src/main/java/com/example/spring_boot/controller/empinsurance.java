@@ -9,6 +9,7 @@ import com.example.spring_boot.entity.*;
 import java.util.Arrays;
 import java.sql.Date;
 import com.example.spring_boot.repository.CarsDAO;
+import com.example.spring_boot.repository.CustomerEmailDAO;
 import com.example.spring_boot.repository.InsurancePlanDAO;
 import com.example.spring_boot.repository.RequestInsuranceDAO;
 import com.example.spring_boot.repository.UserDetailRepository;
@@ -42,7 +43,10 @@ public class empinsurance {
      @PostMapping("/customer_det")
      public String getMethodName(@RequestParam long custId,Model model) {
         UserDetails u=UserDetailRepository.getCustomerById(custId);
+        List<String> email=CustomerEmailDAO.getEmailsByCustomerId(custId);
+        model.addAttribute("email", email);
         model.addAttribute("u",u);
+        
          return "cust_det";
      }
       @GetMapping("/verifiedcust")
@@ -60,5 +64,12 @@ public class empinsurance {
         // Redirect to /verifyinsurance
         return "redirect:/verifyinsurance";
     }
+    @GetMapping("/rejectedcust")
+    public String takeRequestBack(@RequestParam("car_id") Long carId,RedirectAttributes r){
+        RequestInsuranceDAO.deleteEntryByCarId(carId);
+        r.addFlashAttribute("message","Insurance Rejected");
+        return "redirect:/verifyinsurance";
+    }
+
      
 }
