@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Car</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #444;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #388E3C;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+
+        /* Container for the form */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .go-back {
+            text-decoration: none;
+            color: #2196F3;
+            font-size: 16px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .go-back:hover {
+            text-decoration: underline;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-actions a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Car</h1>
+
+    <!-- Go Back Button -->
+    <a href="#" onclick="window.history.back();" class="go-back">Go Back</a>
+
+    <!-- Container for Form -->
+    <div class="container">
+        <form th:action="@{/addnewcar}" method="post">
+            <!-- <label for="model_name">Model Name</label>
+            <input type="text" id="model_name" name="model_name" th:value="${c.modelName}" placeholder="Enter model name" required /> -->
+
+
+            <label for="model_name">Model Name</label>
+            <input type="text" id="model_name" name="modelName" th:value="${c.modelName}" placeholder="Enter model name" required />
+
+            <label for="mileage">Mileage</label>
+            <input type="number" id="mileage" name="mileage" th:value="${c.mileage}" placeholder="Enter mileage" required />
+
+            
+            <label for="engine_type">Engine Type</label>
+            <select id="engine_type" name="engine_type" required>
+                <option value="" th:text="'Select Engine Type'">Select Engine Type</option>
+                <option value="Petrol" th:text="'Petrol'">Petrol</option>
+                <option value="Diesel" th:text="'Diesel'">Diesel</option>
+                <option value="Hybrid" th:text="'Hybrid'">Hybrid</option>
+                <option value="Electric" th:text="'Electric'">Electric</option>
+            </select>
+
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" th:value="${c.price}" placeholder="Enter price" required />
+
+            <label for="manufacture_year">Manufacture Year</label>
+            <input type="number" id="manufacture_year" name="manufactureYear" th:value="${c.manufactureYear}" placeholder="Enter manufacture year" required />
+
+            <label for="manufacturer_id">Manufacturer</label>
+            <select id="manufacturer_id" name="manufacturer_id" required>
+                <option value="" th:text="'Select Manufacturer'">Select Manufacturer</option>
+                <!-- Loop through manufacturer map -->
+                <option th:each="entry : ${m}" 
+                        th:value="${entry.key}" 
+                        th:text="${entry.value}">Manufacturer</option>
+            </select>
+
+            <!-- Submit Button -->
+            <button type="submit">Save Car</button>
+        </form>
+    </div>
+</body>
+</html>
