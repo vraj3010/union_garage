@@ -11,13 +11,10 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">User Details Form</h2>
         <form th:action="@{/userdetails}" th:object="${userDetails}" method="post" class="row g-3">
-            <!-- <input type="hidden" name="custId" th:value="${userDetails.custId}"> -->
             <input type="hidden" name="custId" th:value="${userDetails.custId}">
             <input type="hidden" name="username" th:value="${user.username}">
             <input type="hidden" name="password" th:value="${user.password}">
             <input type="hidden" name="role" th:value="${user.role}">
-            <!-- Hidden fields for UserRegistrationDto attributes -->
-        
             
             <div class="col-md-6">
                 <label for="phoneNo" class="form-label">Phone Number</label>
@@ -71,6 +68,17 @@
                 <input type="text" id="license" th:field="*{license}" class="form-control" placeholder="Enter License Number" 
                        pattern="[A-Za-z]{2}\d{13}" maxlength="15" required title="License number must start with 2 letters followed by 13 digits">
             </div>
+            
+            <div class="col-12">
+                <label for="email" class="form-label">Email(s)</label>
+                <div id="emailContainer">
+                    <div class="input-group mb-3">
+                        <input type="email" name="emailList" class="form-control" placeholder="Enter Email" required>
+                        <button type="button" class="btn btn-outline-secondary" onclick="addEmailField()">Add Email</button>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -79,6 +87,29 @@
     </div>
 
     <!-- Bootstrap 5 JS and dependencies -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript to dynamically add email fields -->
+  <script>
+    function addEmailField() {
+        const emailContainer = document.getElementById('emailContainer');
+
+        // Create a new input group for the new email input
+        const newEmailDiv = document.createElement('div');
+        newEmailDiv.classList.add('input-group', 'mb-3');
+        newEmailDiv.innerHTML = `
+            <input type="email" name="emailList" class="form-control" placeholder="Enter Email" required>
+            <button type="button" class="btn btn-outline-danger" onclick="removeEmailField(this)">Remove</button>
+        `;
+
+        // Append the new email input group to the container
+        emailContainer.appendChild(newEmailDiv);
+    }
+
+    function removeEmailField(button) {
+        button.parentElement.remove();
+    }
+</script>
+
 </body>
 </html>

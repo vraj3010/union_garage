@@ -1,14 +1,127 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Layout and Container Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #f4f4f9, #e0e7ff);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .primary-btn {
+            background-color: #28a745;
+        }
+
+        .primary-btn:hover {
+            background-color: #218838;
+        }
+
+        .secondary-btn {
+            background-color: #6c757d;
+        }
+
+        .secondary-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .logout-btn {
+            background-color: #ff4d4d;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff6666;
+        }
+
+        .add-car-btn {
+            background-color: #17a2b8;
+        }
+
+        .add-car-btn:hover {
+            background-color: #138496;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2> <li><a href="/addemp">Add Employee OR Manufacturer</a></li></h2>
-        <h2> <li><a href="logout">Logout</a></li></h2>
+
+<div class="container">
+    <header class="header">
+        <h1>Admin Dashboard</h1>
+        <button onclick="window.location.href='/logout'" class="btn logout-btn">Logout</button>
+    </header>
+
+    <div class="content">
+        <div class="action-buttons">
+            <button onclick="window.location.href='/addemp'" class="btn primary-btn">Add Employee</button>
+            <button onclick="window.location.href='/addmanu'" class="btn primary-btn">Add Manufacturer</button>
+            <button onclick="window.location.href='/addcar'" class="btn add-car-btn">Add Car</button>
+            <button onclick="window.location.href='/employees'" class="btn secondary-btn">List Employees</button>
+            <button onclick="window.location.href='/manufacturers'" class="btn secondary-btn">List Manufacturers</button>
+        </div>
     </div>
+</div>
+
 </body>
 </html>

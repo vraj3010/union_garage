@@ -8,23 +8,11 @@
     <!-- Link to custom CSS located in resources/static/css/styles.css -->
     <link rel="stylesheet" th:href="@{/css/register.css}">
 </head>
-<style>
-     .custom-alert {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            text-align: center;
-        }
-</style>
 <body>
     <div class="container">
-        <h2>Employee Registration</h2>
+        <h2>Manufacturer Registration</h2>
         <div th:if="${msg}" class="custom-alert" th:text="${msg}"></div>
-        <form action="#" th:action="@{/addemp}" th:object="${user}" method="post">
+        <form action="#" th:action="@{/addmanu}" th:object="${user}" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" th:field="*{username}" class="form-control" name="username" required/>
@@ -35,20 +23,17 @@
             </div>
             <div class="form-group">
                 <label for="role">Role:</label>
-                
                 <select id="role" th:field="*{role}" class="form-control" required>
                     <option value="" disabled selected>Select a role</option>
                     <option th:each="role : ${roles}" th:value="${role.roleName}" th:text="${role.roleName}"></option>
                 </select>
             </div>
             <!-- <div class="form-group">
-                <label for="role">Roles:</label>
-                <input type="hidden" th:field="*{role}" class="form-control" required value="${role.roleName}"/>
-                    <p th:each="role : ${roles}" th:text="${role.roleName}"></p>
+                <label for="role">Role:</label>
+            <b>  <p th:each="role : ${roles}" th:text="${role.roleName}"></p></b>
+                  
                 
-            </div>
-             -->
-            
+            </div> -->
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>

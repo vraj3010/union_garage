@@ -102,7 +102,7 @@ public static boolean updateRepairDetails(Long repairId, Date newRepairDate, Lon
 
 
 public static boolean checkPaymentDueStatus(long carId) {
-    String query = "SELECT 1 FROM repair WHERE car_id = ? AND repair_status = 'PAYMENT DUE' LIMIT 1";
+    String query = "SELECT 1 FROM repair WHERE car_id = ? AND (repair_status = 'PAYMENT DUE' OR repair_status='IN PROGRESS')";
 
     try (Connection conn = DatabaseConnector.getConnection();
          PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -125,7 +125,7 @@ public static boolean isPaymentDueForCustomer(long custId) {
     String checkPaymentDueSQL = "SELECT r.repair_id " +
                                 "FROM repair r " +
                                 "JOIN cars c ON r.car_id = c.cid " +
-                                "WHERE c.customer_id = ? AND r.repair_status = 'PAYMENT DUE'";
+                                "WHERE c.customer_id = ? AND r.repair_status = 'PAYMENT DUE' ";
 
     try (Connection conn = DatabaseConnector.getConnection();
          PreparedStatement stmt = conn.prepareStatement(checkPaymentDueSQL)) {

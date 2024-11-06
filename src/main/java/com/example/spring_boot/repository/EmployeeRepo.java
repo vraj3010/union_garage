@@ -11,6 +11,8 @@ import org.apache.el.lang.ELArithmetic.BigDecimalDelegate;
 import com.example.spring_boot.config.DatabaseConnector;
 import com.example.spring_boot.entity.Employee;
 import com.example.spring_boot.entity.UserDetails;
+import java.util.List;
+import java.util.ArrayList;
 public class EmployeeRepo{
 
     public static void add_new_emp(long emp_id) {
@@ -117,7 +119,7 @@ public class EmployeeRepo{
                             customerData.setPhoneNo((BigDecimal) columnValue);
                             break;
                         case "dept_id":
-                            customerData.setDept((Long) columnValue);
+                            customerData.setDeptId((Long) columnValue);
                             break;
                         case "first_name":
                             customerData.setFirstName((String) columnValue);
@@ -152,5 +154,78 @@ public class EmployeeRepo{
             e.printStackTrace();
         }
         return customerData; // This could return null if not found
+    }
+
+    // 1. Get all employees
+    public static List<Employee> getAllEmployees() {
+        List<Employee> employeeList = new ArrayList<>();
+        String query = "SELECT * FROM employee";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Employee employee = new Employee();
+                employee.setEmpId(rs.getLong("emp_id"));
+                employee.setSalary(rs.getInt("salary"));
+                employee.setPhoneNo(rs.getBigDecimal("phoneNo"));
+                employee.setFirstName(rs.getString("first_name"));
+                employee.setMiddleName(rs.getString("middle_name"));
+                employee.setLastName(rs.getString("last_name"));
+                employee.setHouseNo(rs.getString("houseNo"));
+                employee.setStreet(rs.getString("street"));
+                employee.setCity(rs.getString("city"));
+                employee.setState(rs.getString("state"));
+                employee.setAadharNo(rs.getBigDecimal("AadharNo"));
+                employee.setDeptId(rs.getLong("dept_id"));
+
+                employeeList.add(employee);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return employeeList;
+    }
+
+    // 2. Update salary by employee ID
+    public static boolean updateSalaryByEmpId(long empId, int newSalary) {
+        String query = "UPDATE employee SET salary = ? WHERE emp_id = ?";
+        boolean isUpdated = false;
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, newSalary);
+            stmt.setLong(2, empId);
+            int rowsAffected = stmt.executeUpdate();
+            isUpdated = rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
+
+    // 3. Delete employee by employee ID
+    public static boolean deleteEmployeeByEmpId(long empId) {
+        String query = "DELETE FROM employee WHERE emp_id = ?";
+        boolean isDeleted = false;
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setLong(1, empId);
+            int rowsAffected = stmt.executeUpdate();
+            isDeleted = rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isDeleted;
     }
 }

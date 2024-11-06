@@ -100,9 +100,16 @@
                 <span class="label">License:</span> 
                 <span th:text="${u.license}">DL-1234-5678</span>
             </div>
-
+            <div class="customer-detail">
+                <span class="label">Email Addresses:</span>
+                <ul class="email-list">
+                    <li th:each="email : ${email}" th:text="${email}">example@example.com</li>
+                </ul>
+            </div>
             <!-- Go Back link -->
-            <a href="/emppay" class="back-link">Go Back</a>
+            <div class="text-center">
+                <a href="javascript:history.go(-2)" class="back-link">Go Back</a>
+            </div>
         </div>
     </div>
 </body>

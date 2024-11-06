@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import com.example.spring_boot.entity.*;
 import com.example.spring_boot.repository.CarsDAO;
+import com.example.spring_boot.repository.EmployeeEmailDAO;
 import com.example.spring_boot.repository.EmployeeRepo;
 import com.example.spring_boot.repository.InsurancePlanDAO;
 import com.example.spring_boot.repository.PaymentDAO;
@@ -31,7 +32,9 @@ public class paymentdue {
     @PostMapping("/emp_det")
     public String getMethodName(Model model,@RequestParam Long id) {
         Employee e=EmployeeRepo.getCustomerById(id);
+        List<String> email=EmployeeEmailDAO.getEmailsByEmpId(id);
         model.addAttribute("e", e);
+        model.addAttribute("email", email);
         return "emp_det";
     }
     @PostMapping("/car_det")

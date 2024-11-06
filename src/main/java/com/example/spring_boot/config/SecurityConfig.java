@@ -44,7 +44,7 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                .requestMatchers("/error", "/login", "/logout", "/resources/**", "/home", "/css/**", "/fonts/**", "/images/**", "/js/**", "/register", "/services/**", "/userdetails").permitAll()
+                .requestMatchers("/error", "/login", "/logout", "/resources/**", "/home", "/css/**", "/fonts/**", "/images/**", "/js/**", "/register", "/services/**", "/userdetails","contact").permitAll()
                 .requestMatchers("/info/**", "/buy", "/addcar", "/track-order", "/edit/info", "/insurance", "/listcar", "/paymentdue", "/repair").hasAuthority("USER")
                 .requestMatchers("/yy", "/employee/", "/carsforrepair", "/entercost", "/verifyinsurance", "/employee", "/employee/edit", "/sell").hasAuthority("EMPLOYEE")
                 .requestMatchers("/admin", "/addemp").hasAuthority("ADMIN")

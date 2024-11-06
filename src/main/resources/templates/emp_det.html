@@ -2,58 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Employee Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Styling for table */
-        table {
-            width: 50%;
-            margin: auto;
-            border-collapse: collapse;
+        .employee-details-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .employee-title {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        
+        .table {
+            margin-bottom: 20px;
+        }
+        
+        .back-button {
+            display: block;
+            width: 100%;
+            text-align: center;
             margin-top: 20px;
         }
-
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
+        
+        .email-list {
+            padding-left: 0;
         }
-
-        th {
-            background-color: #f2f2f2;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        td {
-            text-align: right;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
+        
+        .email-item {
+            list-style: none;
+            padding: 5px;
+            font-size: 1rem;
+            color: #495057;
+            border-bottom: 1px solid #dee2e6;
         }
     </style>
 </head>
 <body>
 
-<h2>Employee Details</h2>
+<div class="container">
+    <div class="employee-details-container">
+        <h2 class="employee-title">Employee Details</h2>
 
-<table>
-    <tr>
-        <th>First Name</th>
-        <td th:text="${e.firstName}"></td>
-    </tr>
-    <tr>
-        <th>Middle Name</th>
-        <td th:text="${e.middleName}"></td>
-    </tr>
-    <tr>
-        <th>Last Name</th>
-        <td th:text="${e.lastName}"></td>
-    </tr>
-    <tr>
-        <th>Phone Number</th>
-        <td th:text="${e.phoneNo}"></td>
-    </tr>
-</table>
+        <table class="table table-bordered">
+            <tr>
+                <th scope="row">First Name</th>
+                <td th:text="${e.firstName}">John</td>
+            </tr>
+            <tr>
+                <th scope="row">Middle Name</th>
+                <td th:text="${e.middleName}">A.</td>
+            </tr>
+            <tr>
+                <th scope="row">Last Name</th>
+                <td th:text="${e.lastName}">Doe</td>
+            </tr>
+            <tr>
+                <th scope="row">Phone Number</th>
+                <td th:text="${e.phoneNo}">9876543210</td>
+            </tr>
+        </table>
+
+        <!-- Email List Section -->
+        <div class="card">
+            <div class="card-header text-center font-weight-bold">
+                Email Addresses
+            </div>
+            <ul class="list-group list-group-flush email-list">
+                <li th:each="email : ${email}" class="list-group-item email-item" th:text="${email}">example@example.com</li>
+            </ul>
+        </div>
+
+        <!-- Go Back Button -->
+        <a href="javascript:history.back()" class="btn btn-primary back-button">Go Back</a>
+    </div>
+</div>
 
 </body>
 </html>

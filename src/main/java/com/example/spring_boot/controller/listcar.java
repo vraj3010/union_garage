@@ -57,7 +57,7 @@ public class listcar {
     public String deletecar(Model model,HttpSession session,@RequestParam Long carId ,RedirectAttributes r){
         boolean check=RepairDAO.checkPaymentDueStatus(carId);
         if(check) {
-            r.addFlashAttribute("msg", "First Pay your dues");
+            r.addFlashAttribute("msg", "Either car is in repair or pay your dues");
             return "redirect:/listcar";
         }
         r.addFlashAttribute("msg", "Car Deleted");

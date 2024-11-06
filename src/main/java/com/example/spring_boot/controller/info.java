@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 import com.example.spring_boot.entity.Employee;
 import com.example.spring_boot.entity.UserDetails;
+import com.example.spring_boot.repository.CustomerEmailDAO;
 import com.example.spring_boot.repository.EmployeeRepo;
 import com.example.spring_boot.repository.RepairDAO;
 import com.example.spring_boot.repository.SellCarDAO;
@@ -26,6 +28,7 @@ import com.example.spring_boot.repository.UserDAO;
 import com.example.spring_boot.repository.UserDetailRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import java.util.List;
 @Controller
 public class info {
 
@@ -36,20 +39,24 @@ public class info {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username=auth.getName();
         Long id=UserDAO.getUserIdByUsername(username);
+        List<String> email=CustomerEmailDAO.getEmailsByCustomerId(id);
         session.setAttribute("id", id);
         UserDetails m1=UserDetailRepository.getCustomerById(id);
         model.addAttribute("userdetails",m1);
+        model.addAttribute("email", email);
         return "info";
     }
     @GetMapping("/edit/info")
     public String editinfo(Model model,HttpSession session){
         Long id=(Long)session.getAttribute("id");
+        List<String> email=CustomerEmailDAO.getEmailsByCustomerId(id);
         UserDetails m1=UserDetailRepository.getCustomerById(id);
         model.addAttribute("userDetails",m1);
+        model.addAttribute("email", email); 
         return "edit_customer";
     }
     @PostMapping("/edit/info")
-    public String edit(@ModelAttribute("userdetails") UserDetails m1,HttpSession session) throws Exception{
+    public String edit(@ModelAttribute("userdetails") UserDetails m1,HttpSession session,@RequestParam("emailList") List<String> emailList) throws Exception{
 
         Long id=(Long)session.getAttribute("id");
           for (Field field : UserDetails.class.getDeclaredFields()) {
@@ -71,6 +78,8 @@ public class info {
             UserDetailRepository.upd_cust_detail(id, fieldName, fieldValue.toString());
          
         }
+        CustomerEmailDAO.deleteEmailsByCustomerId(id);
+        CustomerEmailDAO.addCustomerEmails(id, emailList);
         return "redirect:/info";
     }
     @GetMapping("/delete/info")

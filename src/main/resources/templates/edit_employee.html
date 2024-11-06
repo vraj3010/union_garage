@@ -128,17 +128,52 @@
                 <label for="dept_id">Department ID</label>
                 <input type="text" id="dept_id" th:field="${dept_id_str}" class="form-control" placeholder="Enter Department ID" required />
             </div> -->
+            
 
-            <!-- Submit Button -->
-            <div class="form-group text-center">
-                <button type="submit">Update Employee</button>
+
+            <div class="col-12">
+                <label class="form-label">Email Addresses</label>
+                <div id="emailContainer">
+                    <div th:each="email, iterStat : ${email}">
+                        <div class="email-entry">
+                            <input type="email" name="emailList" th:value="${email}" class="form-control" placeholder="Enter Email" required>
+                            <button type="button" class="btn btn-danger remove-email" th:if="${iterStat.index > 0}" onclick="removeEmail(this)">-</button>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <button type="button" class="btn btn-success mt-2" onclick="addEmail()">+ Add Email</button>
+                <br> 
+                        <br>
             </div>
-
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit">Update Employee</button>
+                        </div>
+                        
             <!-- Cancel Link -->
             <div class="form-group text-center">
-                <a th:href="@{/employee/{id}(id=${employee.empId})}">Cancel</a>
+                <a th:href="@{/employee}">Cancel</a>
             </div>
         </form>
     </div>
+
+    <script>
+        function addEmail() {
+            const emailContainer = document.getElementById("emailContainer");
+            const emailEntry = document.createElement("div");
+            emailEntry.className = "email-entry";
+            emailEntry.innerHTML = `
+                <input type="email" name="emailList" class="form-control" placeholder="Enter Email" required>
+                <button type="button" class="btn btn-danger remove-email" onclick="removeEmail(this)">-</button>
+            `;
+            emailContainer.appendChild(emailEntry);
+        }
+
+        function removeEmail(button) {
+            button.parentElement.remove();
+        }
+    </script>
 </body>
 </html>

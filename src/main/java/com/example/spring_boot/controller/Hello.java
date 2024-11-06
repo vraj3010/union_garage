@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class Hello
 {
+    @GetMapping("/")
+    public String getMethodName() {
+        return "redirect:/home";
+    }
+    
     @GetMapping("/admin")
     public String th(){
         return "admin";

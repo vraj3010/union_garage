@@ -21,20 +21,31 @@
         .verify-btn:hover {
             background-color: #218838;
         }
+        .reject-btn {
+            color: white;
+            background-color: #dc3545;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+        .reject-btn:hover {
+            background-color: #c82333;
+        }
         .take-back-link {
-    color: #007bff;          /* Link color */
-    text-decoration: none;   /* Removes underline */
-    font-weight: bold;       /* Makes text bold */
-    padding: 8px 12px;       /* Adds padding around the link */
-    border: 2px solid #007bff; /* Border color to match text */
-    border-radius: 4px;      /* Rounds the corners */
-    transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
-}
-
-.take-back-link:hover {
-    background-color: #007bff; /* Changes background on hover */
-    color: white;              /* Changes text color on hover */
-}
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .take-back-link:hover {
+            background-color: #007bff;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -77,10 +88,18 @@
                     </td>
                     
                     <td>
-                        <form th:action="@{/verifiedcust}" method="get">
+                        <!-- Verify Button -->
+                        <form th:action="@{/verifiedcust}" method="get" style="display:inline;">
                             <input type="hidden" th:name="plan_id" th:value="${request.planId}" />
                             <input type="hidden" th:name="car_id" th:value="${request.carId}" />
                             <button type="submit" class="verify-btn">Verify</button>
+                        </form>
+                        
+                        <!-- Reject Button -->
+                        <form th:action="@{/rejectedcust}" method="get" style="display:inline;">
+                            <input type="hidden" th:name="plan_id" th:value="${request.planId}" />
+                            <input type="hidden" th:name="car_id" th:value="${request.carId}" />
+                            <button type="submit" class="reject-btn">Reject</button>
                         </form>
                     </td>
                 </tr>

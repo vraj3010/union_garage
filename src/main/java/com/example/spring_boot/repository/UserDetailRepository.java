@@ -173,7 +173,7 @@ public class UserDetailRepository {
     }
 
     public static boolean doesUsernameExist(String username) {
-        String checkUsernameSQL = "SELECT user_id FROM users WHERE username = ?";
+        String checkUsernameSQL = "SELECT id FROM users WHERE username = ?";
 
         try (Connection conn = DatabaseConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(checkUsernameSQL)) {
