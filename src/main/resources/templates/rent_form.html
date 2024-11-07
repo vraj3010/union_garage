@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental Form Path</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 16px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .note {
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Rental Form Submission</h1>
+
+    <!-- Instructions Section -->
+    <div class="form-group">
+        <p class="note">
+            Please <a href="#" target="_blank">download this form</a>, print it, sign it, and then upload it to a document storage service of your choice (e.g., Google Drive, Dropbox, etc.). Once uploaded, paste the link to the signed PDF in the field below.
+        </p>
+    </div>
+
+    <form th:action="@{/rent_form}" method="post">
+        <!-- Form Path Link -->
+        <div class="form-group">
+            <label for="form_path">Link to Signed Form (URL)</label>
+            <input type="url" th:field="*{rental.form_path}"id="form_path" name="form_path" placeholder="Enter the URL of the signed form" required />
+            <div class="note">Ensure the link is accessible and points to the uploaded signed form document.</div>
+        </div>
+
+        <button type="submit" class="button">Submit Form</button>
+    </form>
+</div>
+
+</body>
+</html>

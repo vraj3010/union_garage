@@ -37,6 +37,10 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -50,49 +54,47 @@
         .button:hover {
             background-color: #45a049;
         }
+        .note {
+            font-size: 12px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>Renter Details</h1>
-    <form action="#" th:action="@{/rentdetails}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/rentdetails}" method="post" th:object="${rental}">
+        <!-- Hidden Field for Renter ID -->
         <div class="form-group">
-            <input type="hidden" id="renter_id" name="renter_id" th:value="${rental.renter_id}" readonly />
+            <input type="hidden" th:field="*{renter_id}" readonly />
         </div>
 
+        <!-- Driver History -->
         <div class="form-group">
             <label for="driver_history">Driver History</label>
-            <textarea id="driver_history" name="driver_history" rows="4" th:value="${rental.driver_history}"></textarea>
+            <textarea th:field="*{driver_history}" rows="4"></textarea>
+            <div class="error-message" th:if="${#fields.hasErrors('driver_history')}" th:errors="*{driver_history}">Driver History Error</div>
         </div>
 
+        <!-- License Proof Link -->
         <div class="form-group">
-            <label for="license_proof">License Proof</label>
-            <input type="file" id="license_proof" name="license_proof" />
+            <label for="license_proof">License Proof (Provide a link to the document)</label>
+            <input type="url" th:field="*{license_proof}" placeholder="Enter the URL for license proof" required />
+            <div class="note">The link should contain the proof document.</div>
+            <div class="error-message" th:if="${#fields.hasErrors('license_proof')}" th:errors="*{license_proof}">License Proof Error</div>
         </div>
 
-        <div class="form-group">
-            <input type="hidden" id="form_path" name="form_path" th:value="${rental.form_path}" />
-        </div>
-<!-- 
-        <div class="form-group">
-            <label for="last_rental_date">Last Rental Date</label>
-            <input type="date" id="last_rental_date" name="last_rental_date" th:value="${rental.last_rental_date}" />
-        </div> -->
-
-        <div class="form-group">
-            <label for="signup_date">Signup Date</label>
-            <input type="date" id="signup_date" name="signup_date" th:value="${rental.signup_date}" />
-        </div>
-
+        <!-- Referral Source -->
         <div class="form-group">
             <label for="referral_source">Referral Source</label>
-            <select id="referral_source" name="referral_source">
-                <option value="Website" th:selected="${rental.referral_source == 'Website'}">Website</option>
-                <option value="Social Media" th:selected="${rental.referral_source == 'Social Media'}">Social Media</option>
-                <option value="Friend" th:selected="${rental.referral_source == 'Friend'}">Friend</option>
-                <option value="Advertisement" th:selected="${rental.referral_source == 'Advertisement'}">Advertisement</option>
+            <select th:field="*{referral_source}">
+                <option value="Website">Website</option>
+                <option value="Social Media">Social Media</option>
+                <option value="Friend">Friend</option>
+                <option value="Advertisement">Advertisement</option>
             </select>
+            <div class="error-message" th:if="${#fields.hasErrors('referral_source')}" th:errors="*{referral_source}">Referral Source Error</div>
         </div>
 
         <button type="submit" class="button">Submit</button>

@@ -10,6 +10,7 @@ import org.apache.el.lang.ELArithmetic.BigDecimalDelegate;
 
 import com.example.spring_boot.config.DatabaseConnector;
 import com.example.spring_boot.entity.Employee;
+import com.example.spring_boot.entity.Renter;
 import com.example.spring_boot.entity.UserDetails;
 import java.util.List;
 import java.util.ArrayList;
@@ -227,5 +228,54 @@ public class EmployeeRepo{
         }
 
         return isDeleted;
+    }
+
+    public static List<Renter> getUnapprovedRenters() {
+        List<Renter> unapprovedRenters = new ArrayList<>();
+        String sql = "SELECT * FROM renter WHERE status = 'Pending'";
+
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Renter renter = new Renter();
+                renter.setRenter_id(rs.getLong("renter_id"));
+                renter.setDriver_history(rs.getString("driver_history"));
+                renter.setLicense_proof(rs.getString("license_proof"));
+                renter.setForm_path(rs.getString("form_path"));
+                renter.setLast_rental_date(rs.getDate("last_rental_date"));
+                renter.setSignup_date(rs.getDate("signup_date"));
+                renter.setReferral_source(rs.getString("referral_source"));
+                renter.setStatus(rs.getString("status"));
+
+                unapprovedRenters.add(renter);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return unapprovedRenters;
+    }
+
+    public static void verifyRenter(long emp_id, long renter_id) {
+        String sql = "UPDATE renter SET status = 'Approved', verifying_emp = ? WHERE renter_id = ?";
+    
+        try (Connection conn = DatabaseConnector.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    
+            pstmt.setLong(1, emp_id);  // Set verifying_emp to emp_id
+            pstmt.setLong(2, renter_id);  // Identify the specific renter by renter_id
+    
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Renter verified successfully.");
+            } else {
+                System.out.println("Renter not found.");
+            }
+    
+        } catch (SQLException e) {
+            e.printStackTrace();}
     }
 }

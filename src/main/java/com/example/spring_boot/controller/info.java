@@ -39,6 +39,7 @@ public class info {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username=auth.getName();
         Long id=UserDAO.getUserIdByUsername(username);
+        if(id==null) return "redirect:/logout";
         List<String> email=CustomerEmailDAO.getEmailsByCustomerId(id);
         session.setAttribute("id", id);
         UserDetails m1=UserDetailRepository.getCustomerById(id);

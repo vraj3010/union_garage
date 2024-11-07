@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Renter Details</title>
+    <link rel="stylesheet" href="/css/info.css">
+</head>
+<style>
+    .alert {
+        width: 100%;
+        padding: 15px;
+        background-color: red;
+        color: white;
+        margin-top: 20px;
+        border-radius: 4px;
+        text-align: center;
+    }
+    .renter-details {
+        margin-top: 20px;
+    }
+    .renter-details p {
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+    .actions {
+        margin-top: 20px;
+    }
+    .actions a {
+        text-decoration: none;
+        color: white;
+        background-color: #4CAF50;
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+    .alert {
+            width: 100%;
+            padding: 15px;
+            background-color: #45a049;
+            color: white;
+            margin-top: 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+</style>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Car Services</h1>
+        </div>
+        <!-- <div th:if="${msg}" class="alert" th:text="${msg}"></div> -->
+        <nav class="navbar">
+            <ul>
+                <li><a th:href="@{/rent-car}">Rent</a></li>
+                <li><a th:href="@{/rent/track}">Track Rent</a></li>
+                <li><a th:href="@{/info}">go Back</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div th:if="${msg}" class="alert" th:text="${msg}"></div>
+    
+    <div class="container">
+        <h1>Renter Details</h1>
+
+        <div class="renter-details">
+            <!-- <p><strong>Renter ID:</strong> <span th:text="${renterdetails.renter_id}"></span></p> -->
+            <p><strong>Driver History:</strong> <span th:text="${renterdetails.driver_history}"></span></p>
+            <p><strong>License Proof:</strong> <a th:href="${renterdetails.license_proof}" target="_blank">View License Proof</a></p>
+            <p><strong>Form Path:</strong> <a th:href="${renterdetails.form_path}" target="_blank" th:text="${renterdetails.form_path}"></a></p>
+            <p><strong>Last Rental Date:</strong> <span th:text="${#dates.format(renterdetails.last_rental_date, 'yyyy-MM-dd')}"></span></p>
+            <p><strong>Signup Date:</strong> <span th:text="${#dates.format(renterdetails.signup_date, 'yyyy-MM-dd')}"></span></p>
+            <!-- <p><strong>Referral Source:</strong> <span th:text="${renterdetails.referral_source}"></span></p> -->
+            <!-- <p><strong>Verifying Employee ID:</strong> <span th:text="${renterdetails.verifying_emp}"></span></p> -->
+            <p><strong>Status of Verification:</strong> <span th:text="${renterdetails.status}"></span></p>
+        </div>
+
+        <div class="actions">
+            <a th:href="@{/deleteRenter}" class="btn">Delete Renter</a>
+            <a th:href="@{/rentalhistory}" class="btn">View Rental History</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Track Rentals</title>
+    <link rel="stylesheet" href="/css/info.css">
+    <style>
+        /* Styling for alert, container, table, and buttons */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn {
+            padding: 8px 15px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-top: 0;
+            color: #333;
+        }
+        .go-back {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Track Rentals</h1>
+    </header>
+
+    <!-- Go Back Button -->
+    <div class="go-back">
+        <a href="javascript:history.back()" class="btn">Go Back</a>
+    </div>
+
+    <!-- In-Progress Rentals Section -->
+    <div class="container">
+        <h2 class="section-title">In-Progress Rentals</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rent ID</th>
+                    <th>Model ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rent : ${inProgressRentals}">
+                    <td th:text="${rent.rent_id}"></td>
+                    <td>
+                        <form th:action="@{/model-det}" method="post" style="display:inline;">
+                            <input type="hidden" name="modelId" th:value="${rent.model_id}" />
+                            <button type="submit" class="btn" style="padding: 5px 10px;">View Model</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Rejected Rentals Section -->
+    <div class="container">
+        <h2 class="section-title">Rejected Rentals</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rent ID</th>
+                    <th>Model ID</th>
+                    <th>Employee ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rent : ${rejectedRentals}">
+                    <td th:text="${rent.rent_id}"></td>
+                    <td>
+                        <form th:action="@{/model-det}" method="post" style="display:inline;">
+                            <input type="hidden" name="modelId" th:value="${rent.model_id}" />
+                            <button type="submit" class="btn" style="padding: 5px 10px;">View Model</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/emp_det}" method="post" style="display:inline;">
+                            <input type="hidden" name="id" th:value="${rent.employee_id}" />
+                            <button type="submit" class="btn" style="padding: 5px 10px;">View Employee</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

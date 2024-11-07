@@ -38,9 +38,9 @@ public class RegistrationController {
         model.addAttribute("user", new UserRegistrationDto());
         List<Role> k=new ArrayList<>();
         Role r1=new Role(1L,"USER");
-        Role r2=new Role(2L,"RENTER");
+        // Role r2=new Role(2L,"RENTER");
         k.add(r1);
-        k.add(r2);
+        // k.add(r2);
         model.addAttribute("roles", k);
         return "registration"; // Name of the Thymeleaf template
     }

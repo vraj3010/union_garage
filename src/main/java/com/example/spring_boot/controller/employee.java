@@ -29,6 +29,7 @@ public class employee {
         String username=auth.getName();
         
         Long id=UserDAO.getUserIdByUsername(username);
+        if(id==null) return "redirect:/logout";
         List<String> email=EmployeeEmailDAO.getEmailsByEmpId(id);
         session.setAttribute("id", id);
         Employee m1=EmployeeRepo.getCustomerById(id);
@@ -85,4 +86,6 @@ public class employee {
         EmployeeEmailDAO.addEmployeeEmails(id, emailList);
         return "redirect:/employee";
     }
+
+    
 }

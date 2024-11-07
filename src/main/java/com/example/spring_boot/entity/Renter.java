@@ -5,7 +5,7 @@ import java.util.Date;
 public class Renter {
     private Long renter_id;
     private String driver_history;
-    private byte[] license_proof; 
+    private String license_proof; 
     private String form_path;
     private Date last_rental_date;
     private Date signup_date;
@@ -17,7 +17,7 @@ public class Renter {
     public Renter() {}
 
     // Parameterized constructor
-    public Renter(Long renter_id, String driver_history, byte[] license_proof, String form_path,
+    public Renter(Long renter_id, String driver_history, String license_proof, String form_path,
                   Date last_rental_date, Date signup_date, String referral_source, String status) {
         this.renter_id = renter_id;
         this.driver_history = driver_history;
@@ -46,11 +46,11 @@ public class Renter {
         this.driver_history = driver_history;
     }
 
-    public byte[] getLicense_proof() {
+    public String getLicense_proof() {
         return license_proof;
     }
 
-    public void setLicense_proof(byte[] license_proof) {
+    public void setLicense_proof(String license_proof) {
         this.license_proof = license_proof;
     }
 

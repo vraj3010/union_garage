@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Current Renters</title>
+    <link rel="stylesheet" href="/css/info.css">
+    <style>
+        /* Styling for the page, table, and buttons */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn {
+            padding: 8px 15px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn.complete {
+            background-color: #e74c3c;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Current Renters</h1>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Current Rentals</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rent ID</th>
+                    <th>Renter ID</th>
+                    <th>Car Model</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rent : ${r}">
+                    <td th:text="${rent.rent_id}"></td>
+                    <td th:text="${rent.renter_id}"></td>
+                    <td th:text="${rent.model_id}"></td>
+                    <td th:text="${#dates.format(rent.start_date, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(rent.end_date, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${rent.rental_status}"></td>
+                    <td>
+                        <!-- Complete button -->
+                        <form th:action="@{/rent/complete}" method="post" style="display:inline;">
+                            <input type="hidden" name="rent_id" th:value="${rent.rent_id}" />
+                            <button type="submit" class="btn complete">Complete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Go Back button -->
+    <div class="container" style="text-align: center;">
+        <a href="#" class="btn" th:href="@{/home}">Go Back</a>
+    </div>
+</body>
+</html>

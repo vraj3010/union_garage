@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Rentals</title>
+    <link rel="stylesheet" href="/css/info.css">
+    <style>
+        /* Styling for container, table, and buttons */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn {
+            padding: 8px 15px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn.reject {
+            background-color: #e74c3c;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-top: 0;
+            color: #333;
+        }
+        .alert {
+            width: 100%;
+            padding: 15px;
+            background-color: #ff4d4d;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Verify Rentals</h1>
+    </header>
+    <div th:if="${msg}" class="alert" th:text="${msg}"></div>
+    <div class="container">
+        <h2 class="section-title">Pending Rental Verifications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rent ID</th>
+                    <th>Renter ID</th>
+                    <th>Model ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rent : ${r}">
+                    <td th:text="${rent.rent_id}"></td>
+                    <td>
+                        <form th:action="@{/customer_det}" method="post" style="display:inline;">
+                            <input type="hidden" name="custId" th:value="${rent.renter_id}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${rent.renter_id}">Customer ID</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/model-det}" method="post" style="display:inline;">
+                            <input type="hidden" name="modelId" th:value="${rent.model_id}" />
+                            <button type="submit" class="btn-link text-primary" style="border:none; background:none; color:inherit; cursor:pointer; padding:0;" th:text="${rent.model_id}">Model ID</button>
+                        </form>
+                    </td>
+                   
+                   
+                    <td>
+                        <!-- Verify Button -->
+                        <form th:action="@{/verifyrent}" method="post" style="display:inline;">
+                            <input type="hidden" name="rent_id" th:value="${rent.rent_id}" />
+                            <button type="submit" class="btn">Verify</button>
+                        </form>
+                        <!-- Reject Button -->
+                        <form th:action="@{/rejectrent}" method="post" style="display:inline;">
+                            <input type="hidden" name="rent_id" th:value="${rent.rent_id}" />
+                            <button type="submit" class="btn reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
